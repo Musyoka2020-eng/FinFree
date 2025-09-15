@@ -1,0 +1,136 @@
+<!-- Calculators Section Component -->
+<section id="calculators" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Financial Calculators</h1>
+            <p class="section-description">Use these calculators to plan your financial future</p>
+        </div>
+
+        <!-- Calculator Categories -->
+        <div class="calculator-grid">
+            <!-- Emergency Fund Calculator -->
+            <div class="calculator-card" data-calculator="emergency-fund">
+                <div class="calculator-card-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Emergency Fund Calculator</h3>
+                </div>
+                <p>Calculate how much you need for a complete emergency fund</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('emergency-fund')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Loan Calculator -->
+            <div class="calculator-card" data-calculator="loan">
+                <div class="calculator-card-header">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Loan Calculator</h3>
+                </div>
+                <p>Calculate monthly payments, interest, and loan terms</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('loan')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Retirement Calculator -->
+            <div class="calculator-card" data-calculator="retirement">
+                <div class="calculator-card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Retirement Calculator</h3>
+                </div>
+                <p>Plan for your retirement and see if you're on track</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('retirement')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Investment Calculator -->
+            <div class="calculator-card" data-calculator="investment">
+                <div class="calculator-card-header">
+                    <i class="fas fa-trending-up"></i>
+                    <h3>Investment Calculator</h3>
+                </div>
+                <p>Calculate compound growth and investment returns</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('investment')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Debt Payoff Calculator -->
+            <div class="calculator-card" data-calculator="debt-payoff">
+                <div class="calculator-card-header">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Debt Payoff Calculator</h3>
+                </div>
+                <p>Compare debt payoff strategies and timelines</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('debt-payoff')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Mortgage Calculator -->
+            <div class="calculator-card" data-calculator="mortgage">
+                <div class="calculator-card-header">
+                    <i class="fas fa-home"></i>
+                    <h3>Mortgage Calculator</h3>
+                </div>
+                <p>Calculate mortgage payments and affordability</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('mortgage')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Savings Goal Calculator -->
+            <div class="calculator-card" data-calculator="savings-goal">
+                <div class="calculator-card-header">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h3>Savings Goal Calculator</h3>
+                </div>
+                <p>Calculate how much to save monthly for your goals</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('savings-goal')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Tax Calculator -->
+            <div class="calculator-card" data-calculator="tax">
+                <div class="calculator-card-header">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>Tax Calculator</h3>
+                </div>
+                <p>Estimate your tax liability and refund</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('tax')">
+                    Use Calculator
+                </button>
+            </div>
+
+            <!-- Net Worth Calculator -->
+            <div class="calculator-card" data-calculator="net-worth">
+                <div class="calculator-card-header">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Net Worth Calculator</h3>
+                </div>
+                <p>Calculate your total net worth and track progress</p>
+                <button class="btn btn-primary" onclick="FinFree.openCalculator('net-worth')">
+                    Use Calculator
+                </button>
+            </div>
+        </div>
+
+        <!-- Calculator Results Section -->
+        <div id="calculator-results" class="calculator-results" style="display: none;">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2 id="calculator-title">Calculator Results</h2>
+                    <button class="btn btn-secondary" onclick="FinFree.clearCalculatorResults()">
+                        <i class="fas fa-times"></i>
+                        Close
+                    </button>
+                </div>
+                <div id="calculator-content" class="calculator-content">
+                    <!-- Calculator content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

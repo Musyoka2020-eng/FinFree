@@ -1,0 +1,177 @@
+<!-- Conscious Spending Plan Section Component -->
+<section id="spending-plan" class="section">
+    <div class="spending-plan-container">
+        <div class="spending-page-header">
+            <h1 class="spending-page-title">Conscious Spending Plan</h1>
+            <p class="spending-page-subtitle">Spend extravagantly on what you love, cut costs mercilessly on what you don't</p>
+        </div>
+
+        <!-- Spending Plan Overview -->
+        <div class="spending-content-section">
+            <div class="plan-intro">
+                <div class="intro-content">
+                    <h2 class="spending-section-title">What is a Conscious Spending Plan?</h2>
+                    <p class="spending-section-description">Unlike traditional budgets that restrict everything, a Conscious Spending Plan helps you spend money on things you love while automatically saving and cutting costs on things you don't care about.</p>
+                    
+                    <ul class="spending-key-points">
+                        <li>
+                            <strong>Spend on what you love</strong><br>
+                            Identify your values and spend generously on what matters most to you
+                        </li>
+                        <li>
+                            <strong>Cut costs mercilessly</strong><br>
+                            Eliminate spending on things that don't align with your values
+                        </li>
+                        <li>
+                            <strong>Automate everything</strong><br>
+                            Set up systems so your money flows automatically to the right places
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- The 60% Solution -->
+        <div class="spending-solution-framework">
+            <h2 class="spending-section-title">The Conscious Spending Framework</h2>
+            <div class="spending-framework-grid">
+                <div class="spending-framework-item">
+                    <div class="spending-percentage">60%</div>
+                    <h3>Fixed Costs</h3>
+                    <p>Rent, utilities, groceries, phone, minimum debt payments</p>
+                    <div class="spending-current-amount" id="fixed-costs-amount">$0.00</div>
+                </div>
+                <div class="spending-framework-item">
+                    <div class="spending-percentage">10%</div>
+                    <h3>Investments</h3>
+                    <p>401(k), Roth IRA, index funds, automatic investing</p>
+                    <div class="spending-current-amount" id="investments-amount">$0.00</div>
+                </div>
+                <div class="spending-framework-item">
+                    <div class="spending-percentage">5-10%</div>
+                    <h3>Savings</h3>
+                    <p>Emergency fund, vacation, down payment goals</p>
+                    <div class="spending-current-amount" id="savings-amount">$0.00</div>
+                </div>
+                <div class="spending-framework-item highlight">
+                    <div class="spending-percentage">20-35%</div>
+                    <h3>Guilt-Free Spending</h3>
+                    <p>Whatever you want! Restaurants, shopping, entertainment</p>
+                    <div class="spending-current-amount" id="guilt-free-amount">$0.00</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Plan Status -->
+        <div class="spending-plan-status">
+            <h2 class="spending-section-title">Your Current Plan</h2>
+            <div class="spending-status-grid">
+                <div class="spending-status-card">
+                    <h3>Monthly Income</h3>
+                    <div class="spending-amount" id="plan-income">$0.00</div>
+                    <button class="btn btn-sm btn-outline" onclick="FinFree.updateIncome()">Update</button>
+                </div>
+                <div class="spending-status-card">
+                    <h3>Plan Status</h3>
+                    <div class="spending-status incomplete" id="plan-status">Incomplete</div>
+                    <button class="btn btn-sm btn-primary" onclick="FinFree.setupSpendingPlan()">Complete Setup</button>
+                </div>
+                <div class="spending-status-card">
+                    <h3>Automation Score</h3>
+                    <div class="spending-score" id="automation-score">0/10</div>
+                    <button class="btn btn-sm btn-outline" onclick="FinFree.improveAutomation()">Improve</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spending Categories -->
+        <div class="spending-categories">
+            <h2 class="spending-section-title">Your Spending Categories</h2>
+            <div class="spending-categories-container">
+                <div class="spending-category-section">
+                    <h3>Fixed Costs (60%)</h3>
+                    <div id="fixed-costs-list" class="spending-category-items">
+                        <div class="spending-empty-state">
+                            <p>Add your fixed costs to get started</p>
+                            <button class="btn btn-outline" onclick="FinFree.addFixedCost()">
+                                <i class="fas fa-plus"></i>
+                                Add Fixed Cost
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spending-category-section">
+                    <h3>Investments (10%)</h3>
+                    <div id="investments-list" class="spending-category-items">
+                        <div class="spending-empty-state">
+                            <p>Set up your automatic investments</p>
+                            <button class="btn btn-outline" onclick="FinFree.addInvestment()">
+                                <i class="fas fa-plus"></i>
+                                Add Investment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spending-category-section">
+                    <h3>Savings (5-10%)</h3>
+                    <div id="savings-goals-list" class="spending-category-items">
+                        <div class="spending-empty-state">
+                            <p>Set up your savings goals</p>
+                            <button class="btn btn-outline" onclick="FinFree.addSavingsGoal()">
+                                <i class="fas fa-plus"></i>
+                                Add Savings Goal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spending-category-section highlight">
+                    <h3>Guilt-Free Spending (20-35%)</h3>
+                    <div id="guilt-free-categories" class="spending-category-items">
+                        <div class="spending-guilt-free-amount">
+                            <h4>Available for guilt-free spending</h4>
+                            <div class="spending-big-amount" id="guilt-free-monthly">$0.00</div>
+                            <p>per month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Items -->
+        <div class="spending-action-items">
+            <h2 class="spending-section-title">Action Items</h2>
+            <div id="action-items-list" class="spending-action-list">
+                <div class="spending-action-item">
+                    <div class="spending-action-content">
+                        <h4>Calculate your take-home income</h4>
+                        <p>Enter your monthly after-tax income to get started</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.calculateIncome()">
+                        Calculate
+                    </button>
+                </div>
+                <div class="spending-action-item">
+                    <div class="spending-action-content">
+                        <h4>Set up automatic transfers</h4>
+                        <p>Automate your savings and investments</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="FinFree.setupAutomation()">
+                        Set Up
+                    </button>
+                </div>
+                <div class="spending-action-item">
+                    <div class="spending-action-content">
+                        <h4>Optimize your spending</h4>
+                        <p>Review and optimize your largest expenses</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="FinFree.optimizeSpending()">
+                        Optimize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

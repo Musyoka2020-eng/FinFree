@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FinFree - Personal Finance Management App. Track expenses, manage budgets, monitor income, set financial goals, and learn about personal finance.">
+    <meta name="keywords" content="personal finance, budget tracking, expense management, financial goals, money management, finance app">
+    <meta name="author" content="FinFree">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FinFree - Personal Finance Management">
+    <meta property="og:description" content="Take control of your finances with FinFree. Track expenses, manage budgets, set goals, and learn about personal finance.">
+    <meta property="og:url" content="https://your-username.github.io/FinFree/">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="FinFree - Personal Finance Management">
+    <meta property="twitter:description" content="Take control of your finances with FinFree. Track expenses, manage budgets, set goals, and learn about personal finance.">
+    
+    <title>FinFree - Personal Finance Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Favicon (will be generated later) -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-coins"></i>
+                <span>FinFree</span>
+            </div>
+            <div class="nav-user">
+                <div id="sync-status" class="sync-status">
+                    <i class="fas fa-exclamation-triangle" style="color: var(--warning-color)"></i>
+                    <span>Local Only</span>
+                </div>
+                <div id="user-info" class="user-info">
+                    <button class="btn btn-primary btn-sm" onclick="FirebaseIntegration.showAuthModal()">
+                        Sign In / Sign Up
+                    </button>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#expenses" class="nav-link" data-section="expenses">
+                        <i class="fas fa-receipt"></i>
+                        <span>Expenses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#budget" class="nav-link" data-section="budget">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Budget</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#earnings" class="nav-link" data-section="earnings">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Earnings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#goals" class="nav-link" data-section="goals">
+                        <i class="fas fa-target"></i>
+                        <span>Goals</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#calculators" class="nav-link" data-section="calculators">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculators</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#guides" class="nav-link" data-section="guides">
+                        <i class="fas fa-book"></i>
+                        <span>Guides</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#spending-plan" class="nav-link" data-section="spending-plan">
+                        <i class="fas fa-brain"></i>
+                        <span>Conscious Spending</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#petty-cash" class="nav-link" data-section="petty-cash">
+                        <i class="fas fa-wallet"></i>
+                        <span>Petty Cash</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h1 class="section-title">Dashboard</h1>
+                
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-balance">$0.00</h3>
+                            <p>Total Balance</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="monthly-income">$0.00</h3>
+                            <p>This Month's Income</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="monthly-expenses">$0.00</h3>
+                            <p>This Month's Expenses</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="emergency-fund">$0.00</h3>
+                            <p>Emergency Fund</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Transactions</h3>
+                        <div id="recent-transactions" class="transaction-list">
+                            <!-- Transactions will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Budget Overview -->
+                    <div class="dashboard-card">
+                        <h3>Budget Overview</h3>
+                        <div id="budget-overview" class="budget-overview">
+                            <!-- Budget data will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goals Progress -->
+                <div class="dashboard-card">
+                    <h3>Active Goals</h3>
+                    <div id="goals-progress" class="goals-progress">
+                        <!-- Goals will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expenses Section -->
+        <section id="expenses" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Expense Tracking</h1>
+                    <button class="btn btn-primary" id="add-expense-btn">
+                        <i class="fas fa-plus"></i>
+                        Add Expense
+                    </button>
+                </div>
+
+                <!-- Add Expense Form -->
+                <div id="expense-form" class="form-modal hidden">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Add New Expense</h3>
+                            <button class="btn-close" id="close-expense-form">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="add-expense-form">
+                            <div class="form-group">
+                                <label for="expense-amount">Amount</label>
+                                <input type="number" id="expense-amount" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="expense-category">Category</label>
+                                <select id="expense-category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="food">Food & Dining</option>
+                                    <option value="transportation">Transportation</option>
+                                    <option value="shopping">Shopping</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="bills">Bills & Utilities</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="education">Education</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="expense-description">Description</label>
+                                <input type="text" id="expense-description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="expense-date">Date</label>
+                                <input type="date" id="expense-date" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-expense">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Expenses List -->
+                <div class="expenses-container">
+                    <div class="expenses-filters">
+                        <select id="filter-category">
+                            <option value="">All Categories</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="bills">Bills & Utilities</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="education">Education</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <input type="month" id="filter-month" class="month-filter">
+                    </div>
+                    <div id="expenses-list" class="expenses-list">
+                        <!-- Expenses will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Budget Section -->
+        <section id="budget" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Budget Management</h1>
+                    <button class="btn btn-primary" id="create-budget-btn">
+                        <i class="fas fa-plus"></i>
+                        Create Budget
+                    </button>
+                </div>
+
+                <!-- Budget Form -->
+                <div id="budget-form" class="form-modal hidden">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Create Monthly Budget</h3>
+                            <button class="btn-close" id="close-budget-form">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="add-budget-form">
+                            <div class="form-group">
+                                <label for="budget-month">Month</label>
+                                <input type="month" id="budget-month" required>
+                            </div>
+                            <div class="budget-categories">
+                                <div class="form-group">
+                                    <label for="budget-food">Food & Dining</label>
+                                    <input type="number" id="budget-food" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-transportation">Transportation</label>
+                                    <input type="number" id="budget-transportation" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-shopping">Shopping</label>
+                                    <input type="number" id="budget-shopping" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-entertainment">Entertainment</label>
+                                    <input type="number" id="budget-entertainment" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-bills">Bills & Utilities</label>
+                                    <input type="number" id="budget-bills" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-healthcare">Healthcare</label>
+                                    <input type="number" id="budget-healthcare" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-education">Education</label>
+                                    <input type="number" id="budget-education" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="budget-other">Other</label>
+                                    <input type="number" id="budget-other" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-budget">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Create Budget</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Budget Display -->
+                <div id="budget-display" class="budget-display">
+                    <!-- Budget content will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Earnings Section -->
+        <section id="earnings" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Income Tracking</h1>
+                    <button class="btn btn-primary" id="add-income-btn">
+                        <i class="fas fa-plus"></i>
+                        Add Income
+                    </button>
+                </div>
+
+                <!-- Income Form -->
+                <div id="income-form" class="form-modal hidden">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Add Income</h3>
+                            <button class="btn-close" id="close-income-form">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="add-income-form">
+                            <div class="form-group">
+                                <label for="income-amount">Amount</label>
+                                <input type="number" id="income-amount" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="income-source">Source</label>
+                                <select id="income-source" required>
+                                    <option value="">Select Source</option>
+                                    <option value="salary">Salary</option>
+                                    <option value="freelance">Freelance</option>
+                                    <option value="business">Business</option>
+                                    <option value="investment">Investment Returns</option>
+                                    <option value="rental">Rental Income</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="income-description">Description</label>
+                                <input type="text" id="income-description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="income-date">Date</label>
+                                <input type="date" id="income-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="income-recurring">
+                                    <input type="checkbox" id="income-recurring">
+                                    Recurring Income
+                                </label>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-income">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Income</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Income List -->
+                <div id="income-list" class="income-list">
+                    <!-- Income entries will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Goals Section -->
+        <section id="goals" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Financial Goals</h1>
+                    <button class="btn btn-primary" id="add-goal-btn">
+                        <i class="fas fa-plus"></i>
+                        Add Goal
+                    </button>
+                </div>
+
+                <!-- Goal Form -->
+                <div id="goal-form" class="form-modal hidden">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Create New Goal</h3>
+                            <button class="btn-close" id="close-goal-form">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="add-goal-form">
+                            <div class="form-group">
+                                <label for="goal-name">Goal Name</label>
+                                <input type="text" id="goal-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="goal-target">Target Amount</label>
+                                <input type="number" id="goal-target" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="goal-current">Current Amount</label>
+                                <input type="number" id="goal-current" step="0.01" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="goal-deadline">Target Date</label>
+                                <input type="date" id="goal-deadline" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="goal-category">Category</label>
+                                <select id="goal-category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="emergency">Emergency Fund</option>
+                                    <option value="vacation">Vacation</option>
+                                    <option value="car">Car Purchase</option>
+                                    <option value="house">House Down Payment</option>
+                                    <option value="investment">Investment</option>
+                                    <option value="education">Education</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-goal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Create Goal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Goals List -->
+                <div id="goals-list" class="goals-list">
+                    <!-- Goals will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators Section -->
+        <section id="calculators" class="section">
+            <div class="container">
+                <h1 class="section-title">Financial Calculators</h1>
+                
+                <div class="calculator-tabs">
+                    <button class="tab-btn active" data-calc="dividend">Dividend Calculator</button>
+                    <button class="tab-btn" data-calc="shares">Share Calculator</button>
+                    <button class="tab-btn" data-calc="profit-loss">Profit/Loss Calculator</button>
+                    <button class="tab-btn" data-calc="compound">Compound Interest</button>
+                </div>
+
+                <!-- Dividend Calculator -->
+                <div id="dividend-calculator" class="calculator active">
+                    <h3>Dividend Calculator</h3>
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="div-shares">Number of Shares</label>
+                            <input type="number" id="div-shares" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="div-per-share">Dividend per Share</label>
+                            <input type="number" id="div-per-share" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="div-frequency">Frequency</label>
+                            <select id="div-frequency">
+                                <option value="1">Annual</option>
+                                <option value="2">Semi-Annual</option>
+                                <option value="4">Quarterly</option>
+                                <option value="12">Monthly</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateDividend()">Calculate</button>
+                        <div id="dividend-result" class="calculator-result"></div>
+                    </div>
+                </div>
+
+                <!-- Share Calculator -->
+                <div id="shares-calculator" class="calculator">
+                    <h3>Share Value Calculator</h3>
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="share-price">Current Share Price</label>
+                            <input type="number" id="share-price" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="share-quantity">Number of Shares</label>
+                            <input type="number" id="share-quantity" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="purchase-price">Purchase Price per Share (optional)</label>
+                            <input type="number" id="purchase-price" step="0.01">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateShares()">Calculate</button>
+                        <div id="shares-result" class="calculator-result"></div>
+                    </div>
+                </div>
+
+                <!-- Profit/Loss Calculator -->
+                <div id="profit-loss-calculator" class="calculator">
+                    <h3>Profit/Loss Calculator</h3>
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="buy-price">Buy Price per Share</label>
+                            <input type="number" id="buy-price" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="sell-price">Sell Price per Share</label>
+                            <input type="number" id="sell-price" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="pl-shares">Number of Shares</label>
+                            <input type="number" id="pl-shares" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="commission">Commission/Fees (total)</label>
+                            <input type="number" id="commission" step="0.01" value="0">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateProfitLoss()">Calculate</button>
+                        <div id="profit-loss-result" class="calculator-result"></div>
+                    </div>
+                </div>
+
+                <!-- Compound Interest Calculator -->
+                <div id="compound-calculator" class="calculator">
+                    <h3>Compound Interest Calculator</h3>
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="principal">Initial Amount</label>
+                            <input type="number" id="principal" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest-rate">Annual Interest Rate (%)</label>
+                            <input type="number" id="interest-rate" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="compound-frequency">Compound Frequency</label>
+                            <select id="compound-frequency">
+                                <option value="1">Annually</option>
+                                <option value="2">Semi-Annually</option>
+                                <option value="4">Quarterly</option>
+                                <option value="12">Monthly</option>
+                                <option value="365">Daily</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time-period">Time Period (years)</label>
+                            <input type="number" id="time-period" step="0.1">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateCompoundInterest()">Calculate</button>
+                        <div id="compound-result" class="calculator-result"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guides Section -->
+        <section id="guides" class="section">
+            <div class="container">
+                <h1 class="section-title">Financial Guides</h1>
+                
+                <div class="guides-grid">
+                    <div class="guide-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Emergency Fund Guide</h3>
+                        <p>Learn how to build and maintain an emergency fund for financial security.</p>
+                        <button class="btn btn-secondary" onclick="showEmergencyGuide()">Read Guide</button>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Investment Basics</h3>
+                        <p>Get started with investing and understand different investment options.</p>
+                        <button class="btn btn-secondary" onclick="showInvestmentGuide()">Read Guide</button>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>Budgeting 101</h3>
+                        <p>Master the art of budgeting and take control of your finances.</p>
+                        <button class="btn btn-secondary" onclick="showBudgetGuide()">Read Guide</button>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Debt Management</h3>
+                        <p>Strategies to pay off debt and improve your financial health.</p>
+                        <button class="btn btn-secondary" onclick="showDebtGuide()">Read Guide</button>
+                    </div>
+                </div>
+
+                <!-- Guide Content Modal -->
+                <div id="guide-modal" class="form-modal hidden">
+                    <div class="form-container large">
+                        <div class="form-header">
+                            <h3 id="guide-title"></h3>
+                            <button class="btn-close" id="close-guide">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div id="guide-content" class="guide-content">
+                            <!-- Guide content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conscious Spending Plan Section -->
+        <section id="spending-plan" class="section">
+            <div class="container">
+                <h1 class="section-title">Conscious Spending Plan</h1>
+                <p class="section-subtitle">Based on Ramit Sethi's approach to mindful money management</p>
+                
+                <div class="spending-plan-form">
+                    <h3>Calculate Your Conscious Spending Plan</h3>
+                    <form id="conscious-spending-form">
+                        <div class="form-group">
+                            <label for="take-home-income">Monthly Take-Home Income</label>
+                            <input type="number" id="take-home-income" step="0.01" required>
+                        </div>
+                        
+                        <div class="spending-categories">
+                            <h4>Recommended Allocation:</h4>
+                            
+                            <div class="category-item">
+                                <label>Fixed Costs (50-60%)</label>
+                                <div class="category-details">
+                                    <p>Rent/Mortgage, utilities, insurance, minimum debt payments</p>
+                                    <input type="number" id="fixed-costs" step="0.01" readonly>
+                                    <span class="percentage">60%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="category-item">
+                                <label>Investments (10%)</label>
+                                <div class="category-details">
+                                    <p>401k, Roth IRA, investment accounts</p>
+                                    <input type="number" id="investments" step="0.01" readonly>
+                                    <span class="percentage">10%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="category-item">
+                                <label>Savings (5-10%)</label>
+                                <div class="category-details">
+                                    <p>Emergency fund, vacation fund, wedding, etc.</p>
+                                    <input type="number" id="savings" step="0.01" readonly>
+                                    <span class="percentage">5%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="category-item">
+                                <label>Guilt-Free Spending (20-35%)</label>
+                                <div class="category-details">
+                                    <p>Dining out, movies, clothes, hobbies</p>
+                                    <input type="number" id="guilt-free" step="0.01" readonly>
+                                    <span class="percentage">25%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" onclick="calculateSpendingPlan()">
+                            Calculate Plan
+                        </button>
+                    </form>
+                    
+                    <div id="spending-plan-result" class="spending-result hidden">
+                        <h4>Your Conscious Spending Plan</h4>
+                        <div id="plan-breakdown" class="plan-breakdown">
+                            <!-- Plan results will be populated by JavaScript -->
+                        </div>
+                        <div class="plan-tips">
+                            <h5>Tips for Success:</h5>
+                            <ul>
+                                <li>Automate your investments and savings first</li>
+                                <li>Track your fixed costs monthly</li>
+                                <li>Spend guilt-free on things you love, cut costs mercilessly on things you don't</li>
+                                <li>Review and adjust your plan every 3 months</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Petty Cash Section -->
+        <section id="petty-cash" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Petty Cash Tracker</h1>
+                    <button class="btn btn-primary" id="add-petty-expense-btn">
+                        <i class="fas fa-plus"></i>
+                        Add Expense
+                    </button>
+                </div>
+
+                <!-- Daily Limit Setting -->
+                <div class="petty-cash-settings">
+                    <div class="form-group inline">
+                        <label for="daily-limit">Daily Spending Limit:</label>
+                        <input type="number" id="daily-limit" step="0.01" value="20">
+                        <button class="btn btn-secondary btn-sm" onclick="updateDailyLimit()">Update</button>
+                    </div>
+                </div>
+
+                <!-- Today's Summary -->
+                <div class="petty-cash-summary">
+                    <div class="summary-card">
+                        <h4>Today's Spending</h4>
+                        <div class="spending-info">
+                            <div class="spent">
+                                <span class="label">Spent:</span>
+                                <span id="today-spent" class="amount">$0.00</span>
+                            </div>
+                            <div class="remaining">
+                                <span class="label">Remaining:</span>
+                                <span id="today-remaining" class="amount">$20.00</span>
+                            </div>
+                        </div>
+                        <div id="spending-progress" class="progress-bar">
+                            <div id="spending-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Petty Cash Form -->
+                <div id="petty-cash-form" class="form-modal hidden">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Add Petty Cash Expense</h3>
+                            <button class="btn-close" id="close-petty-form">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="add-petty-form">
+                            <div class="form-group">
+                                <label for="petty-amount">Amount</label>
+                                <input type="number" id="petty-amount" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="petty-description">Description</label>
+                                <input type="text" id="petty-description" required placeholder="Coffee, snacks, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="petty-time">Time</label>
+                                <input type="time" id="petty-time" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-petty">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Petty Cash List -->
+                <div id="petty-cash-list" class="petty-cash-list">
+                    <!-- Petty cash expenses will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase Config and Scripts -->
+    <script type="module">
+        // Firebase configuration will be added here
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+
+        // Your Firebase config object (to be added later)
+        const firebaseConfig = {
+            // Configuration will be added when setting up Firebase
+        };
+
+        // Initialize Firebase (uncomment when ready)
+        // const app = initializeApp(firebaseConfig);
+        // const db = getFirestore(app);
+        // const auth = getAuth(app);
+
+        // Make Firebase available globally
+        // window.db = db;
+        // window.auth = auth;
+    </script>
+
+    <!-- Main JavaScript Files -->
+    <script src="js/app.js"></script>
+    <script src="js/expenses.js"></script>
+    <script src="js/budget.js"></script>
+    <script src="js/income.js"></script>
+    <script src="js/goals.js"></script>
+    <script src="js/calculators.js"></script>
+    <script src="js/guides.js"></script>
+    <script src="js/spending-plan.js"></script>
+    <script src="js/petty-cash.js"></script>
+    <script src="js/firebase.js"></script>
+</body>
+</html>

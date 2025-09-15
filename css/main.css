@@ -1,0 +1,49 @@
+/* FinFree - Modular CSS Architecture */
+
+/* Base Styles (Load First) */
+@import url('base/variables.css');
+@import url('base/reset.css');
+
+/* Layout Components */
+@import url('layout/navbar.css');
+@import url('layout/main.css');
+@import url('layout/grid.css');
+
+/* UI Components */
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/modals.css');
+@import url('components/alerts.css');
+
+/* Section Specific Styles */
+@import url('sections/dashboard.css');
+@import url('sections/expenses.css');
+@import url('sections/budget.css');
+@import url('sections/income.css');
+@import url('sections/goals.css');
+@import url('sections/calculators.css');
+@import url('sections/guides.css');
+@import url('sections/spending-plan.css');
+@import url('sections/petty-cash.css');
+
+/* Utility Classes (Load Last) */
+@import url('base/utilities.css');
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .nav-toggle,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-top: 0;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+}

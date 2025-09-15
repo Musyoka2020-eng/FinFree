@@ -1,0 +1,119 @@
+<!-- Goals Section Component -->
+<section id="goals" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Financial Goals</h1>
+            <button class="btn btn-primary" onclick="FinFree.showModal('goal-form')">
+                <i class="fas fa-plus"></i>
+                Set New Goal
+            </button>
+        </div>
+
+        <!-- Goals Overview -->
+        <div class="goals-overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-goals">0</h3>
+                        <p>Active Goals</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="completed-goals">0</h3>
+                        <p>Completed Goals</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-goal-amount">$0.00</h3>
+                        <p>Total Goal Amount</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-saved">$0.00</h3>
+                        <p>Total Saved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goal Categories -->
+        <div class="goal-categories">
+            <h2>Goal Categories</h2>
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All Goals</button>
+                <button class="category-tab" data-category="emergency">Emergency Fund</button>
+                <button class="category-tab" data-category="vacation">Vacation</button>
+                <button class="category-tab" data-category="house">House</button>
+                <button class="category-tab" data-category="car">Car</button>
+                <button class="category-tab" data-category="retirement">Retirement</button>
+                <button class="category-tab" data-category="education">Education</button>
+                <button class="category-tab" data-category="other">Other</button>
+            </div>
+        </div>
+
+        <!-- Goals List -->
+        <div class="goals-list-container">
+            <div id="goals-list" class="goals-list">
+                <div class="empty-state">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>No financial goals set</h3>
+                    <p>Set your first financial goal to start your journey towards financial freedom.</p>
+                    <button class="btn btn-primary" onclick="FinFree.showModal('goal-form')">
+                        <i class="fas fa-plus"></i>
+                        Set Your First Goal
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goal Tips -->
+        <div class="goal-tips">
+            <h3>Goal Setting Tips</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-flag"></i>
+                    <div>
+                        <h4>SMART Goals</h4>
+                        <p>Make your goals Specific, Measurable, Achievable, Relevant, and Time-bound.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-layers"></i>
+                    <div>
+                        <h4>Prioritize</h4>
+                        <p>Focus on 1-3 goals at a time. Emergency fund should typically come first.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <h4>Automate</h4>
+                        <p>Set up automatic transfers to make saving for goals effortless.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h4>Track Progress</h4>
+                        <p>Review and update your goal progress regularly to stay motivated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

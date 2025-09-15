@@ -1,0 +1,253 @@
+/* FinFree - Expenses Section Styles */
+
+/* Expense List Container */
+.expense-list-container {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.expense-list {
+    min-height: 200px;
+}
+
+/* Individual Expense Items */
+.expense-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all var(--transition-base);
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+.expense-item:hover {
+    background: var(--bg-color);
+    margin: 0 calc(-1 * var(--spacing-lg));
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    border-radius: var(--border-radius);
+}
+
+.expense-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.expense-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.expense-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.expense-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-xs) 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.expense-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.expense-category {
+    background: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+    padding: 2px var(--spacing-xs);
+    border-radius: var(--border-radius);
+    font-weight: var(--font-weight-medium);
+}
+
+.expense-amount {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--error-color);
+    white-space: nowrap;
+}
+
+.expense-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.expense-item:hover .expense-actions {
+    opacity: 1;
+}
+
+.expense-actions button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.expense-actions button:hover {
+    background: var(--bg-color);
+    color: var(--text-primary);
+}
+
+/* Category Icons */
+.expense-icon.food { background: rgba(255, 152, 0, 0.1); color: #ff9800; }
+.expense-icon.transportation { background: rgba(33, 150, 243, 0.1); color: #2196f3; }
+.expense-icon.shopping { background: rgba(233, 30, 99, 0.1); color: #e91e63; }
+.expense-icon.entertainment { background: rgba(156, 39, 176, 0.1); color: #9c27b0; }
+.expense-icon.bills { background: rgba(244, 67, 54, 0.1); color: #f44336; }
+.expense-icon.healthcare { background: rgba(76, 175, 80, 0.1); color: #4caf50; }
+.expense-icon.education { background: rgba(63, 81, 181, 0.1); color: #3f51b5; }
+.expense-icon.travel { background: rgba(0, 188, 212, 0.1); color: #00bcd4; }
+.expense-icon.other { background: rgba(96, 125, 139, 0.1); color: #607d8b; }
+
+/* Expense Filters Enhancement */
+.expense-filters {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Summary Cards for Expenses */
+.expense-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.summary-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.summary-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.summary-card h4 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.summary-card .amount {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+/* Recent Transactions specific styling */
+.recent-transactions {
+    margin-bottom: var(--spacing-xl);
+}
+
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-base);
+}
+
+.transaction-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .expense-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .expense-info {
+        width: 100%;
+    }
+    
+    .expense-amount {
+        align-self: flex-end;
+    }
+    
+    .expense-actions {
+        opacity: 1;
+        align-self: flex-end;
+    }
+    
+    .expense-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .expense-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .expense-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .expense-item:hover {
+        margin: 0;
+        padding: var(--spacing-md);
+    }
+    
+    .expense-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+}

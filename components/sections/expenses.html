@@ -1,0 +1,113 @@
+<!-- Expenses Section Component -->
+<section id="expenses" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Expense Tracker</h1>
+            <button class="btn btn-primary" onclick="FinFree.showModal('expense-form')">
+                <i class="fas fa-plus"></i>
+                Add Expense
+            </button>
+        </div>
+
+        <!-- Expense Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="today-expenses">$0.00</h3>
+                    <p>Today's Expenses</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="week-expenses">$0.00</h3>
+                    <p>This Week</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="month-expenses">$0.00</h3>
+                    <p>This Month</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="average-daily">$0.00</h3>
+                    <p>Daily Average</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Filters -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label for="expense-category-filter">Category:</label>
+                <select id="expense-category-filter" class="form-select">
+                    <option value="">All Categories</option>
+                    <option value="food">Food & Dining</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="bills">Bills & Utilities</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="education">Education</option>
+                    <option value="travel">Travel</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="expense-date-filter">Date Range:</label>
+                <select id="expense-date-filter" class="form-select">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month" selected>This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year">This Year</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-secondary" onclick="FinFree.clearExpenseFilters()">
+                    <i class="fas fa-times"></i>
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- Expense List -->
+        <div class="expense-list-container">
+            <div class="list-header">
+                <h2>Recent Expenses</h2>
+                <div class="list-actions">
+                    <button class="btn btn-sm btn-outline" onclick="FinFree.exportExpenses()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+            <div id="expense-list" class="expense-list">
+                <div class="empty-state">
+                    <i class="fas fa-receipt"></i>
+                    <h3>No expenses recorded</h3>
+                    <p>Start by adding your first expense using the button above.</p>
+                </div>
+            </div>
+            <div class="load-more-container" style="display: none;">
+                <button class="btn btn-outline" onclick="FinFree.loadMoreExpenses()">
+                    Load More Expenses
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

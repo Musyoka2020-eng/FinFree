@@ -1,0 +1,92 @@
+<!-- Budget Section Component -->
+<section id="budget" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Budget Management</h1>
+            <button class="btn btn-primary" onclick="FinFree.showModal('budget-form')">
+                <i class="fas fa-plus"></i>
+                Set Budget
+            </button>
+        </div>
+
+        <!-- Budget Overview -->
+        <div class="budget-overview">
+            <div class="budget-card total-budget">
+                <div class="budget-header">
+                    <h3>Monthly Budget</h3>
+                    <span class="budget-period">September 2025</span>
+                </div>
+                <div class="budget-amount">
+                    <span class="amount" id="total-budget">$0.00</span>
+                </div>
+                <div class="budget-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="total-budget-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="budget-spent">$0.00 spent</span>
+                        <span id="budget-remaining">$0.00 remaining</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget Categories -->
+        <div class="budget-categories">
+            <h2>Budget Categories</h2>
+            <div id="budget-category-list" class="category-list">
+                <div class="empty-state">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>No budget categories set</h3>
+                    <p>Create your first budget category to start tracking your spending.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget vs Actual Chart -->
+        <div class="budget-chart-container">
+            <div class="chart-header">
+                <h2>Budget vs Actual</h2>
+                <div class="chart-controls">
+                    <select id="budget-chart-period" class="form-select">
+                        <option value="current">Current Month</option>
+                        <option value="last">Last Month</option>
+                        <option value="quarter">This Quarter</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <canvas id="budget-chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Budget Tips -->
+        <div class="budget-tips">
+            <h3>Budget Tips</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <h4>50/30/20 Rule</h4>
+                        <p>Allocate 50% for needs, 30% for wants, and 20% for savings and debt repayment.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h4>Track Regularly</h4>
+                        <p>Review your budget weekly to stay on track and make adjustments as needed.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-piggy-bank"></i>
+                    <div>
+                        <h4>Emergency Fund</h4>
+                        <p>Build an emergency fund with 3-6 months of expenses before aggressive investing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

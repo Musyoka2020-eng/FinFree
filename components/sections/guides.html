@@ -1,0 +1,189 @@
+<!-- Guides Section Component -->
+<section id="guides" class="section">
+    <div class="container">
+        <div class="guides-section-header">
+            <h1 class="guides-section-title">Financial Guides</h1>
+            <p class="section-description">Learn essential financial concepts and strategies</p>
+        </div>
+
+        <!-- Guide Categories -->
+        <div class="guide-categories">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All Guides</button>
+                <button class="category-tab" data-category="basics">Basics</button>
+                <button class="category-tab" data-category="budgeting">Budgeting</button>
+                <button class="category-tab" data-category="saving">Saving</button>
+                <button class="category-tab" data-category="investing">Investing</button>
+                <button class="category-tab" data-category="debt">Debt Management</button>
+                <button class="category-tab" data-category="advanced">Advanced</button>
+            </div>
+        </div>
+
+        <!-- Guides Grid -->
+        <div class="guides-grid">
+            <!-- Emergency Fund Guide -->
+            <div class="guide-card" data-category="basics saving">
+                <div class="guide-image">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Emergency Fund Essentials</h3>
+                    <p class="guide-description">Learn why you need an emergency fund, how much to save, and where to keep it.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span class="read-time">5 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('emergency-fund')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Budgeting 101 -->
+            <div class="guide-card" data-category="basics budgeting">
+                <div class="guide-image">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Budgeting 101</h3>
+                    <p class="guide-description">Master the fundamentals of budgeting and take control of your money.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span class="read-time">8 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('budgeting-101')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Investment Basics -->
+            <div class="guide-card" data-category="investing">
+                <div class="guide-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Investment Fundamentals</h3>
+                    <p class="guide-description">Get started with investing: stocks, bonds, index funds, and portfolio basics.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span class="read-time">12 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('investment-basics')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Debt Management -->
+            <div class="guide-card" data-category="debt">
+                <div class="guide-image">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Debt Management Strategies</h3>
+                    <p class="guide-description">Learn effective strategies to pay off debt: snowball vs. avalanche methods.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span class="read-time">10 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('debt-management')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Retirement Planning -->
+            <div class="guide-card" data-category="investing advanced">
+                <div class="guide-image">
+                    <i class="fas fa-umbrella"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Retirement Planning Guide</h3>
+                    <p class="guide-description">Plan for retirement with 401(k)s, IRAs, and long-term investment strategies.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span class="read-time">15 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('retirement-planning')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Credit Score Guide -->
+            <div class="guide-card" data-category="basics">
+                <div class="guide-image">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Understanding Credit Scores</h3>
+                    <p class="guide-description">Learn how credit scores work and how to improve yours for better loan rates.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span class="read-time">7 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('credit-score')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tax Optimization -->
+            <div class="guide-card" data-category="advanced">
+                <div class="guide-image">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Tax Optimization Strategies</h3>
+                    <p class="guide-description">Advanced strategies to minimize your tax burden legally and effectively.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span class="read-time">20 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('tax-optimization')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Real Estate Investing -->
+            <div class="guide-card" data-category="investing advanced">
+                <div class="guide-image">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="guide-content">
+                    <h3>Real Estate Investing</h3>
+                    <p class="guide-description">Explore real estate investment options: REITs, rental properties, and more.</p>
+                    <div class="guide-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span class="read-time">18 min read</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="FinFree.openGuide('real-estate')">
+                        Read Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Article -->
+        <div class="featured-guide">
+            <div class="featured-header">
+                <h2>Featured Guide</h2>
+            </div>
+            <div class="featured-content">
+                <div class="featured-image">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="featured-text">
+                    <h3>Complete Personal Finance Roadmap</h3>
+                    <p>A comprehensive step-by-step guide to achieving financial independence, from budgeting basics to advanced investment strategies.</p>
+                    <button class="btn btn-primary btn-lg" onclick="FinFree.openGuide('finance-roadmap')">
+                        <i class="fas fa-map"></i>
+                        Start Your Journey
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

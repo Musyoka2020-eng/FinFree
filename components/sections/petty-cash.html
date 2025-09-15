@@ -1,0 +1,197 @@
+<!-- Petty Cash Section Component -->
+<section id="petty-cash" class="section">
+    <div class="petty-cash-container">
+        <div class="petty-page-header">
+            <h1 class="petty-section-title">Petty Cash Tracker</h1>
+            <p class="petty-section-description">Track small daily expenses and cash transactions</p>
+            <button class="btn btn-primary" onclick="FinFree.showModal('petty-cash-form')">
+                <i class="fas fa-plus"></i>
+                Add Cash Expense
+            </button>
+        </div>
+
+        <!-- Petty Cash Overview -->
+        <div class="petty-cash-overview">
+            <div class="petty-stats-grid">
+                <div class="petty-stat-card">
+                    <div class="petty-stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="petty-stat-content">
+                        <h3 id="current-cash">$0.00</h3>
+                        <p>Current Cash</p>
+                    </div>
+                </div>
+                <div class="petty-stat-card">
+                    <div class="petty-stat-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="petty-stat-content">
+                        <h3 id="today-cash-spent">$0.00</h3>
+                        <p>Today's Cash Spending</p>
+                    </div>
+                </div>
+                <div class="petty-stat-card">
+                    <div class="petty-stat-icon">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <div class="petty-stat-content">
+                        <h3 id="week-cash-spent">$0.00</h3>
+                        <p>This Week</p>
+                    </div>
+                </div>
+                <div class="petty-stat-card">
+                    <div class="petty-stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="petty-stat-content">
+                        <h3 id="avg-daily-cash">$0.00</h3>
+                        <p>Daily Average</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cash Management -->
+        <div class="petty-cash-management">
+            <h2 class="petty-section-title">Cash Management</h2>
+            <div class="petty-cash-actions">
+                <div class="petty-action-card">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Add Cash</h3>
+                    <p>Record when you withdraw or receive cash</p>
+                    <button class="btn btn-success" onclick="FinFree.addCash()">
+                        <i class="fas fa-plus"></i>
+                        Add Cash
+                    </button>
+                </div>
+                <div class="petty-action-card">
+                    <i class="fas fa-minus-circle"></i>
+                    <h3>Cash Expense</h3>
+                    <p>Record cash purchases and spending</p>
+                    <button class="btn btn-primary" onclick="FinFree.showModal('petty-cash-form')">
+                        <i class="fas fa-receipt"></i>
+                        Record Expense
+                    </button>
+                </div>
+                <div class="petty-action-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Transfer</h3>
+                    <p>Move cash to bank or other accounts</p>
+                    <button class="btn btn-outline" onclick="FinFree.transferCash()">
+                        <i class="fas fa-exchange-alt"></i>
+                        Transfer
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="petty-cash-transactions">
+            <div class="petty-transactions-header">
+                <h2 class="petty-section-title">Recent Cash Transactions</h2>
+                <div class="petty-transaction-filters">
+                    <select id="cash-period-filter" class="form-select">
+                        <option value="today">Today</option>
+                        <option value="week" selected>This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="all">All Time</option>
+                    </select>
+                    <select id="cash-type-filter" class="form-select">
+                        <option value="">All Types</option>
+                        <option value="expense">Expenses</option>
+                        <option value="add">Cash Added</option>
+                        <option value="transfer">Transfers</option>
+                    </select>
+                </div>
+            </div>
+            <div id="cash-transactions-list" class="petty-transactions-list">
+                <div class="petty-empty-state">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>No cash transactions</h3>
+                    <p>Start tracking your cash expenses and transactions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cash Categories -->
+        <div class="petty-cash-categories">
+            <h2 class="petty-section-title">Cash Spending by Category</h2>
+            <div class="petty-categories-chart">
+                <canvas id="cash-categories-chart" width="400" height="200"></canvas>
+            </div>
+            <div class="petty-categories-list">
+                <div class="petty-category-item">
+                    <div class="petty-category-info">
+                        <div class="petty-category-color" style="background-color: #3b82f6;"></div>
+                        <span class="petty-category-name">Food & Drinks</span>
+                    </div>
+                    <div class="petty-category-amount">$0.00</div>
+                </div>
+                <div class="petty-category-item">
+                    <div class="petty-category-info">
+                        <div class="petty-category-color" style="background-color: #10b981;"></div>
+                        <span class="petty-category-name">Transportation</span>
+                    </div>
+                    <div class="petty-category-amount">$0.00</div>
+                </div>
+                <div class="petty-category-item">
+                    <div class="petty-category-info">
+                        <div class="petty-category-color" style="background-color: #f59e0b;"></div>
+                        <span class="petty-category-name">Entertainment</span>
+                    </div>
+                    <div class="petty-category-amount">$0.00</div>
+                </div>
+                <div class="petty-category-item">
+                    <div class="petty-category-info">
+                        <div class="petty-category-color" style="background-color: #ef4444;"></div>
+                        <span class="petty-category-name">Shopping</span>
+                    </div>
+                    <div class="petty-category-amount">$0.00</div>
+                </div>
+                <div class="petty-category-item">
+                    <div class="petty-category-info">
+                        <div class="petty-category-color" style="background-color: #8b5cf6;"></div>
+                        <span class="petty-category-name">Other</span>
+                    </div>
+                    <div class="petty-category-amount">$0.00</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cash Tips -->
+        <div class="petty-cash-tips">
+            <h3 class="petty-section-title">Petty Cash Tips</h3>
+            <div class="petty-tips-grid">
+                <div class="petty-tip-card">
+                    <i class="fas fa-camera"></i>
+                    <div>
+                        <h4>Take Photos</h4>
+                        <p>Snap photos of receipts for cash purchases to remember details later.</p>
+                    </div>
+                </div>
+                <div class="petty-tip-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Record Immediately</h4>
+                        <p>Log cash expenses right after making them to avoid forgetting.</p>
+                    </div>
+                </div>
+                <div class="petty-tip-card">
+                    <i class="fas fa-piggy-bank"></i>
+                    <div>
+                        <h4>Set Cash Limits</h4>
+                        <p>Withdraw a fixed amount weekly to control cash spending.</p>
+                    </div>
+                </div>
+                <div class="petty-tip-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <div>
+                        <h4>Review Patterns</h4>
+                        <p>Check your cash spending patterns weekly to identify trends.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

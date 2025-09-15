@@ -1,0 +1,258 @@
+/* FinFree - Earnings Section Styles */
+
+/* Income Sources */
+.income-sources {
+    margin-bottom: var(--spacing-xl);
+}
+
+.income-sources h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+.income-sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.income-source-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    position: relative;
+}
+
+.income-source-card:hover {
+    border-color: var(--success-color);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.income-source-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+}
+
+.income-source-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.income-source-type {
+    font-size: var(--font-size-xs);
+    background: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    font-weight: var(--font-weight-medium);
+}
+
+.income-source-amount {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--success-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.income-source-frequency {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.income-source-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+/* Income History */
+.income-history {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.income-history h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+.income-filters {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.income-list {
+    margin-top: var(--spacing-lg);
+}
+
+.income-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all var(--transition-base);
+}
+
+.income-item:last-child {
+    border-bottom: none;
+}
+
+.income-item:hover {
+    background: var(--bg-color);
+    margin: 0 calc(-1 * var(--spacing-lg));
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    border-radius: var(--border-radius);
+}
+
+.income-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.income-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+    flex-shrink: 0;
+}
+
+.income-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.income-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.income-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.income-source-tag {
+    background: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+    padding: 2px var(--spacing-xs);
+    border-radius: var(--border-radius);
+    font-weight: var(--font-weight-medium);
+}
+
+.income-amount {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--success-color);
+    white-space: nowrap;
+}
+
+/* Income Trends Chart */
+.chart-container {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.chart-controls button {
+    margin-right: var(--spacing-sm);
+}
+
+.chart-controls button.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Source Type Icons */
+.income-icon.salary { background: rgba(33, 150, 243, 0.1); color: #2196f3; }
+.income-icon.freelance { background: rgba(156, 39, 176, 0.1); color: #9c27b0; }
+.income-icon.business { background: rgba(255, 152, 0, 0.1); color: #ff9800; }
+.income-icon.investments { background: rgba(76, 175, 80, 0.1); color: #4caf50; }
+.income-icon.rental { background: rgba(233, 30, 99, 0.1); color: #e91e63; }
+.income-icon.other { background: rgba(96, 125, 139, 0.1); color: #607d8b; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .income-sources-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .income-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .income-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .income-info {
+        width: 100%;
+    }
+    
+    .income-amount {
+        align-self: flex-end;
+    }
+    
+    .chart-controls {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .chart-controls button {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .income-source-card {
+        padding: var(--spacing-md);
+    }
+    
+    .income-source-header {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .income-item:hover {
+        margin: 0;
+        padding: var(--spacing-md);
+    }
+}

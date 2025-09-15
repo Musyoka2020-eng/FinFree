@@ -1,0 +1,110 @@
+<!-- Earnings Section Component -->
+<section id="earnings" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Income Tracker</h1>
+            <button class="btn btn-primary" onclick="FinFree.showModal('income-form')">
+                <i class="fas fa-plus"></i>
+                Add Income
+            </button>
+        </div>
+
+        <!-- Income Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="total-income">$0.00</h3>
+                    <p>Total Income</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="monthly-income-display">$0.00</h3>
+                    <p>This Month</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="avg-monthly-income">$0.00</h3>
+                    <p>Monthly Average</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="primary-income">$0.00</h3>
+                    <p>Primary Income</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income Sources -->
+        <div class="income-sources">
+            <h2>Income Sources</h2>
+            <div id="income-sources-list" class="income-sources-grid">
+                <div class="empty-state">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>No income sources added</h3>
+                    <p>Add your income sources to track your earnings effectively.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income History -->
+        <div class="income-history">
+            <div class="list-header">
+                <h2>Income History</h2>
+                <div class="income-filters">
+                    <select id="income-period-filter" class="form-select">
+                        <option value="month">This Month</option>
+                        <option value="quarter">This Quarter</option>
+                        <option value="year">This Year</option>
+                        <option value="all">All Time</option>
+                    </select>
+                    <select id="income-source-filter" class="form-select">
+                        <option value="">All Sources</option>
+                        <option value="salary">Salary</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="business">Business</option>
+                        <option value="investments">Investments</option>
+                        <option value="rental">Rental</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div id="income-history-list" class="income-list">
+                <div class="empty-state">
+                    <i class="fas fa-history"></i>
+                    <h3>No income records</h3>
+                    <p>Your income history will appear here once you start adding income entries.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income Trends Chart -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2>Income Trends</h2>
+                <div class="chart-controls">
+                    <button class="btn btn-sm btn-outline" onclick="FinFree.toggleIncomeChart('monthly')">Monthly</button>
+                    <button class="btn btn-sm btn-outline" onclick="FinFree.toggleIncomeChart('quarterly')">Quarterly</button>
+                    <button class="btn btn-sm btn-outline active" onclick="FinFree.toggleIncomeChart('yearly')">Yearly</button>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <canvas id="income-trends-chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</section>

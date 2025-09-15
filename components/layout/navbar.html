@@ -1,0 +1,75 @@
+<!-- Top Navigation Bar Component -->
+<nav class="topbar">
+    <div class="topbar-container">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Page Title (will be updated dynamically) -->
+        <div class="page-title">
+            <h1 id="current-page-title">Dashboard</h1>
+        </div>
+        
+        <!-- Top Bar Actions -->
+        <div class="topbar-actions">
+            <!-- Sync Status -->
+            <div id="sync-status" class="sync-status">
+                <i class="fas fa-exclamation-triangle" style="color: var(--warning-color)"></i>
+                <span class="sync-text">Local Only</span>
+            </div>
+            
+            <!-- Notifications -->
+            <button class="action-btn" id="notifications-btn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            
+            <!-- Settings -->
+            <button class="action-btn" id="settings-btn" title="Settings" onclick="FinFree.openSettings()">
+                <i class="fas fa-cog"></i>
+            </button>
+            
+            <!-- User Profile -->
+            <div class="user-profile" id="user-profile">
+                <div class="profile-info">
+                    <button class="profile-btn" onclick="FirebaseIntegration.showAuthModal()">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="profile-text">Sign In</span>
+                    </button>
+                </div>
+                <!-- User dropdown will be added here when logged in -->
+                <div class="profile-dropdown" id="profile-dropdown" style="display: none;">
+                    <div class="dropdown-header">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name" id="user-name">Guest User</span>
+                            <span class="user-email" id="user-email">guest@example.com</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" onclick="FinFree.showProfile()">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="FinFree.openSettings()">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="FinFree.exportData()">
+                            <i class="fas fa-download"></i>
+                            Export Data
+                        </a>
+                        <div class="dropdown-separator"></div>
+                        <a href="#" class="dropdown-item" onclick="FirebaseIntegration.signOut()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

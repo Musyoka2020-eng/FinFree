@@ -1,0 +1,27 @@
+# Local development files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node.js (if using local server)
+node_modules/
+npm-debug.log*
+
+# Python (if using local server)
+__pycache__/
+*.pyc
+
+# Local Firebase configuration (users will configure through UI)
+firebase-config.json
+
+# Temporary files
+*.tmp
+*.temp
+
+# System files
+desktop.ini
