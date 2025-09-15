@@ -1,5 +1,22 @@
 /* FinFree - Dashboard Section Styles */
 
+/* Dashboard Specific Stat Card Colors */
+.stats-grid .stat-card:nth-child(1) .stat-icon {
+    background: var(--success-color);
+}
+
+.stats-grid .stat-card:nth-child(2) .stat-icon {
+    background: var(--info-color);
+}
+
+.stats-grid .stat-card:nth-child(3) .stat-icon {
+    background: var(--warning-color);
+}
+
+.stats-grid .stat-card:nth-child(4) .stat-icon {
+    background: var(--secondary-color);
+}
+
 /* Dashboard Overview */
 .dashboard-overview {
     margin-bottom: var(--spacing-xl);
@@ -146,6 +163,28 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.dashboard-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-lg) 0;
 }
 
 .summary-section {

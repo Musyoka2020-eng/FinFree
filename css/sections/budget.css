@@ -100,6 +100,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    min-height: 200px;
 }
 
 .category-item {
@@ -159,8 +160,41 @@
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     margin-bottom: var(--spacing-xl);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.chart-header h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.chart-controls {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.chart-placeholder {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
 }
 
 /* Budget Tips */

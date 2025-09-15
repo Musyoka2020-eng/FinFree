@@ -35,6 +35,31 @@ a {
     text-decoration: none;
 }
 
+/* Font Awesome Icon Fix */
+.fas, .far, .fal, .fat, .fad, .fab, .fass, .fasr, .fasl, .fasp, .fass, .fasl, .fa, i[class^="fa-"], i[class*=" fa-"] {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Pro", FontAwesome !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    line-height: 1;
+}
+
+.fas, .fa-solid, i.fas, i.fa-solid {
+    font-weight: 900 !important;
+}
+
+.far, .fa-regular, i.far, i.fa-regular {
+    font-weight: 400 !important;
+}
+
+.fab, .fa-brands, i.fab, i.fa-brands {
+    font-weight: 400 !important;
+    font-family: "Font Awesome 6 Brands", "Font Awesome 5 Brands" !important;
+}
+
 /* Improve image defaults */
 img, picture, video, canvas, svg {
     display: block;

@@ -58,6 +58,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
 }
 
 .calculator-card-header h3 {

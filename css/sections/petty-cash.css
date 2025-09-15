@@ -17,180 +17,328 @@
     gap: var(--spacing-md);
 }
 
-.petty-header-content h1 {
+.petty-section-title {
     font-size: var(--font-size-3xl);
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
     margin: 0 0 var(--spacing-xs) 0;
 }
 
-.petty-header-content p {
+.petty-section-description {
     font-size: var(--font-size-base);
     color: var(--text-secondary);
     margin: 0;
 }
 
-.petty-header-actions .btn {
+.petty-page-header .btn {
     padding: var(--spacing-sm) var(--spacing-lg);
     font-weight: var(--font-weight-medium);
 }
 
 /* Cash Overview Cards */
 .petty-cash-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
 }
 
-.petty-cash-card {
+.petty-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.petty-stat-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xl);
-    text-align: center;
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
     transition: all var(--transition-base);
 }
 
-.petty-cash-card:hover {
+.petty-stat-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
-.petty-cash-icon {
+.petty-stat-icon {
     width: 60px;
     height: 60px;
     border-radius: var(--border-radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--spacing-md);
     font-size: 1.5rem;
     color: white;
+    flex-shrink: 0;
 }
 
-.petty-cash-card.current .petty-cash-icon {
+.petty-stat-icon i {
+    display: block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.petty-stat-card:nth-child(1) .petty-stat-icon {
     background: var(--primary-color);
 }
 
-.petty-cash-card.today .petty-cash-icon {
+.petty-stat-card:nth-child(2) .petty-stat-icon {
     background: var(--info-color);
 }
 
-.petty-cash-card.week .petty-cash-icon {
+.petty-stat-card:nth-child(3) .petty-stat-icon {
     background: var(--warning-color);
 }
 
-.petty-cash-card.average .petty-cash-icon {
+.petty-stat-card:nth-child(4) .petty-stat-icon {
     background: var(--success-color);
 }
 
-.petty-cash-amount {
+.petty-stat-content h3 {
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
+    margin: 0 0 var(--spacing-xs) 0;
 }
 
-.petty-cash-label {
+.petty-stat-content p {
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
     font-weight: var(--font-weight-medium);
+    margin: 0;
 }
 
 /* Cash Management Section */
 .petty-cash-management {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
-}
-
-/* Main Content Area */
-.petty-main-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xl);
-}
-
-.petty-management-section {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
 }
 
-.petty-section-header {
+.petty-cash-management h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+.petty-cash-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.petty-action-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.petty-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.petty-action-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    display: block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.petty-action-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.petty-action-card p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0 0 var(--spacing-md) 0;
+    line-height: 1.5;
+}
+
+.petty-action-card .btn {
+    width: 100%;
+}
+
+/* Transactions Section */
+.petty-cash-transactions {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.petty-transactions-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--spacing-lg);
-}
-
-.petty-section-title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin: 0;
-}
-
-/* Quick Actions */
-.petty-quick-actions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    flex-wrap: wrap;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
 }
 
-.petty-action-card {
+.petty-transaction-filters {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.petty-transactions-list {
+    min-height: 200px;
+}
+
+.petty-empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--spacing-lg);
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+    min-height: 200px;
+}
+
+.petty-empty-state i {
+    font-size: 3rem;
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-md);
+}
+
+.petty-empty-state h3 {
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.petty-empty-state p {
+    margin: 0;
+}
+
+/* Categories Section */
+.petty-cash-categories {
+    background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: all var(--transition-base);
-    text-decoration: none;
-    color: inherit;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
 }
 
-.petty-action-card:hover {
-    border-color: var(--primary-color);
-    background: rgba(var(--primary-color-rgb), 0.02);
-    transform: translateY(-1px);
-}
-
-.petty-action-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: var(--border-radius-full);
+.petty-categories-chart {
+    margin-bottom: var(--spacing-lg);
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--spacing-sm);
-    font-size: 1.2rem;
-    color: white;
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
 }
 
-.petty-action-card.add-cash .petty-action-icon {
-    background: var(--success-color);
+.petty-categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
 }
 
-.petty-action-card.expense .petty-action-icon {
-    background: var(--primary-color);
+.petty-category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
 }
 
-.petty-action-card.transfer .petty-action-icon {
-    background: var(--info-color);
+.petty-category-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
-.petty-action-title {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
+.petty-category-color {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--border-radius-full);
+}
+
+.petty-category-name {
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.petty-category-amount {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Petty Cash Tips */
+.petty-cash-tips {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.petty-cash-tips h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+.petty-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.petty-tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    background: var(--bg-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.petty-tip-card i {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-top: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.petty-tip-card h4 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
     color: var(--text-primary);
     margin: 0 0 var(--spacing-xs) 0;
+}
+
+.petty-tip-card p {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
 }
 
 .petty-action-description {
