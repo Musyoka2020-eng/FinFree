@@ -1,6 +1,6 @@
-// FinFree - Main Application JavaScript
+// FinFree - Personal Finance Management App
+// Main application logic - Core functionality only (no calculator code)
 
-// Main app object to hold all functionality
 const FinFree = {
     // Data storage
     data: {
@@ -17,12 +17,12 @@ const FinFree = {
 
     // Initialize the application
     init() {
-        console.log('FinFree initializing...');
+        console.log('Initializing FinFree application...');
         this.loadData();
         this.bindEvents();
-        this.showSection('dashboard');
-        this.updateDashboard();
+        this.loadDashboard();
         this.setCurrentDate();
+        console.log('FinFree application initialized successfully');
     },
 
     // Load data from localStorage
@@ -46,17 +46,29 @@ const FinFree = {
         }
     },
 
+    // Initialize events after components are loaded (for modular system)
+    initializeEvents() {
+        console.log('FinFree initializing events after component load...');
+        this.bindEvents();
+        this.showSection('dashboard');
+    },
+
     // Bind event listeners
     bindEvents() {
-        // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.dataset.section;
-                this.showSection(section);
-                this.updateNavigation(link);
+        console.log('Binding events...');
+        
+        // Navigation - check if elements exist first
+        const navLinks = document.querySelectorAll('.nav-link');
+        if (navLinks.length > 0) {
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = link.dataset.section;
+                    this.showSection(section);
+                    this.updateNavigation(link);
+                });
             });
-        });
+        }
 
         // Mobile navigation toggle
         const navToggle = document.querySelector('.nav-toggle');
@@ -66,18 +78,37 @@ const FinFree = {
             navToggle.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
             });
-        }
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+            // Close mobile menu when clicking on a link
+            const navLinksInMenu = navMenu.querySelectorAll('.nav-link');
+            navLinksInMenu.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
             });
+        }
+        
+        // Initialize modal backdrop clicks
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal-backdrop')) {
+                this.hideModal();
+            }
         });
+
+        // Close modal when clicking close button
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal-close') || event.target.closest('.modal-close')) {
+                this.hideModal();
+            }
+        });
+
+        console.log('Events bound successfully');
     },
 
     // Show specific section
     showSection(sectionName) {
+        console.log('Showing section:', sectionName);
+        
         // Hide all sections
         document.querySelectorAll('.section').forEach(section => {
             section.classList.remove('active');
@@ -87,9 +118,17 @@ const FinFree = {
         const targetSection = document.getElementById(sectionName);
         if (targetSection) {
             targetSection.classList.add('active');
+            console.log('Section shown:', sectionName);
+        } else {
+            console.error('Section not found:', sectionName);
         }
 
         // Update specific section content
+        this.updateSectionContent(sectionName);
+    },
+
+    // Update section content
+    updateSectionContent(sectionName) {
         switch (sectionName) {
             case 'dashboard':
                 this.updateDashboard();
@@ -125,463 +164,385 @@ const FinFree = {
         const today = new Date().toISOString().split('T')[0];
         const currentTime = new Date().toTimeString().split(' ')[0].substring(0, 5);
         
-        // Set default dates
+        // Set default dates for any date inputs
         const dateInputs = document.querySelectorAll('input[type="date"]');
         dateInputs.forEach(input => {
             if (!input.value) {
                 input.value = today;
             }
         });
-
-        // Set default time for petty cash
-        const timeInput = document.getElementById('petty-time');
-        if (timeInput && !timeInput.value) {
-            timeInput.value = currentTime;
-        }
     },
 
-    // Update dashboard with latest data
-    updateDashboard() {
-        this.updateStats();
-        this.updateRecentTransactions();
-        this.updateBudgetOverview();
-        this.updateGoalsProgress();
-    },
-
-    // Update dashboard statistics
-    updateStats() {
-        const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM format
-        
-        // Calculate total balance (income - expenses)
-        const totalIncome = this.data.income.reduce((sum, item) => sum + item.amount, 0);
-        const totalExpenses = this.data.expenses.reduce((sum, item) => sum + item.amount, 0);
-        const totalBalance = totalIncome - totalExpenses;
-
-        // Calculate monthly income and expenses
-        const monthlyIncome = this.data.income
-            .filter(item => item.date.startsWith(currentMonth))
-            .reduce((sum, item) => sum + item.amount, 0);
-
-        const monthlyExpenses = this.data.expenses
-            .filter(item => item.date.startsWith(currentMonth))
-            .reduce((sum, item) => sum + item.amount, 0);
-
-        // Calculate emergency fund (goals with category 'emergency')
-        const emergencyFund = this.data.goals
-            .filter(goal => goal.category === 'emergency')
-            .reduce((sum, goal) => sum + goal.current, 0);
-
-        // Update DOM elements
-        this.updateElement('total-balance', this.formatCurrency(totalBalance));
-        this.updateElement('monthly-income', this.formatCurrency(monthlyIncome));
-        this.updateElement('monthly-expenses', this.formatCurrency(monthlyExpenses));
-        this.updateElement('emergency-fund', this.formatCurrency(emergencyFund));
-    },
-
-    // Update recent transactions display
-    updateRecentTransactions() {
-        const container = document.getElementById('recent-transactions');
-        if (!container) return;
-
-        // Combine expenses and income, sort by date
-        const allTransactions = [
-            ...this.data.expenses.map(item => ({ ...item, type: 'expense' })),
-            ...this.data.income.map(item => ({ ...item, type: 'income' }))
-        ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
-
-        if (allTransactions.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No transactions yet</p>';
-            return;
-        }
-
-        container.innerHTML = allTransactions.map(transaction => `
-            <div class="transaction-item">
-                <div class="transaction-info">
-                    <div class="transaction-description">${transaction.description}</div>
-                    <div class="transaction-category">${transaction.category || transaction.source}</div>
-                </div>
-                <div class="transaction-amount ${transaction.type}">
-                    ${transaction.type === 'expense' ? '-' : '+'}${this.formatCurrency(transaction.amount)}
-                </div>
-            </div>
-        `).join('');
-    },
-
-    // Update budget overview on dashboard
-    updateBudgetOverview() {
-        const container = document.getElementById('budget-overview');
-        if (!container) return;
-
-        const currentMonth = new Date().toISOString().slice(0, 7);
-        const budget = this.data.budgets[currentMonth];
-
-        if (!budget) {
-            container.innerHTML = '<p class="text-center text-secondary">No budget set for this month</p>';
-            return;
-        }
-
-        const categories = Object.keys(budget).filter(key => key !== 'month');
-        const budgetHtml = categories.map(category => {
-            const budgeted = budget[category] || 0;
-            const spent = this.data.expenses
-                .filter(expense => expense.date.startsWith(currentMonth) && expense.category === category)
-                .reduce((sum, expense) => sum + expense.amount, 0);
-            
-            const isOverBudget = spent > budgeted;
-            
-            return `
-                <div class="budget-category">
-                    <div class="category-name">${this.formatCategoryName(category)}</div>
-                    <div class="category-amounts">
-                        <span class="budgeted">${this.formatCurrency(budgeted)}</span>
-                        <span class="spent ${isOverBudget ? 'over-budget' : 'under-budget'}">
-                            ${this.formatCurrency(spent)}
-                        </span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        container.innerHTML = budgetHtml;
-    },
-
-    // Update goals progress on dashboard
-    updateGoalsProgress() {
-        const container = document.getElementById('goals-progress');
-        if (!container) return;
-
-        const activeGoals = this.data.goals
-            .filter(goal => goal.current < goal.target)
-            .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-            .slice(0, 3);
-
-        if (activeGoals.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No active goals</p>';
-            return;
-        }
-
-        container.innerHTML = activeGoals.map(goal => {
-            const progress = (goal.current / goal.target) * 100;
-            const daysLeft = Math.ceil((new Date(goal.deadline) - new Date()) / (1000 * 60 * 60 * 24));
-            
-            return `
-                <div class="goal-card">
-                    <div class="goal-header">
-                        <div class="goal-name">${goal.name}</div>
-                        <div class="goal-category">${this.formatCategoryName(goal.category)}</div>
-                    </div>
-                    <div class="goal-progress">
-                        <div class="goal-amounts">
-                            <span>${this.formatCurrency(goal.current)}</span>
-                            <span>${this.formatCurrency(goal.target)}</span>
-                        </div>
-                        <div class="goal-bar">
-                            <div class="goal-fill" style="width: ${Math.min(progress, 100)}%"></div>
-                        </div>
-                    </div>
-                    <div class="goal-deadline">
-                        ${daysLeft > 0 ? `${daysLeft} days left` : 'Overdue'}
-                    </div>
-                </div>
-            `;
-        }).join('');
-    },
-
-    // Display expenses list
-    displayExpenses() {
-        const container = document.getElementById('expenses-list');
-        if (!container) return;
-
-        // Apply filters
-        const categoryFilter = document.getElementById('filter-category')?.value || '';
-        const monthFilter = document.getElementById('filter-month')?.value || '';
-
-        let filteredExpenses = [...this.data.expenses];
-
-        if (categoryFilter) {
-            filteredExpenses = filteredExpenses.filter(expense => expense.category === categoryFilter);
-        }
-
-        if (monthFilter) {
-            filteredExpenses = filteredExpenses.filter(expense => expense.date.startsWith(monthFilter));
-        }
-
-        // Sort by date (newest first)
-        filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        if (filteredExpenses.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No expenses found</p>';
-            return;
-        }
-
-        container.innerHTML = filteredExpenses.map(expense => `
-            <div class="list-item">
-                <div class="item-info">
-                    <div class="item-title">${expense.description}</div>
-                    <div class="item-details">
-                        ${this.formatCategoryName(expense.category)} • ${this.formatDate(expense.date)}
-                    </div>
-                </div>
-                <div class="item-amount expense">${this.formatCurrency(expense.amount)}</div>
-            </div>
-        `).join('');
-    },
-
-    // Display income list
-    displayIncome() {
-        const container = document.getElementById('income-list');
-        if (!container) return;
-
-        const sortedIncome = [...this.data.income].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        if (sortedIncome.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No income recorded yet</p>';
-            return;
-        }
-
-        container.innerHTML = sortedIncome.map(income => `
-            <div class="list-item">
-                <div class="item-info">
-                    <div class="item-title">${income.description}</div>
-                    <div class="item-details">
-                        ${this.formatCategoryName(income.source)} • ${this.formatDate(income.date)}
-                        ${income.recurring ? ' • Recurring' : ''}
-                    </div>
-                </div>
-                <div class="item-amount income">+${this.formatCurrency(income.amount)}</div>
-            </div>
-        `).join('');
-    },
-
-    // Display goals list
-    displayGoals() {
-        const container = document.getElementById('goals-list');
-        if (!container) return;
-
-        if (this.data.goals.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No goals created yet</p>';
-            return;
-        }
-
-        container.innerHTML = this.data.goals.map(goal => {
-            const progress = (goal.current / goal.target) * 100;
-            const daysLeft = Math.ceil((new Date(goal.deadline) - new Date()) / (1000 * 60 * 60 * 24));
-            
-            return `
-                <div class="goal-card">
-                    <div class="goal-header">
-                        <div class="goal-name">${goal.name}</div>
-                        <div class="goal-category">${this.formatCategoryName(goal.category)}</div>
-                    </div>
-                    <div class="goal-progress">
-                        <div class="goal-amounts">
-                            <span>${this.formatCurrency(goal.current)}</span>
-                            <span>${this.formatCurrency(goal.target)}</span>
-                        </div>
-                        <div class="goal-bar">
-                            <div class="goal-fill" style="width: ${Math.min(progress, 100)}%"></div>
-                        </div>
-                    </div>
-                    <div class="goal-deadline">
-                        Target: ${this.formatDate(goal.deadline)} 
-                        (${daysLeft > 0 ? `${daysLeft} days left` : 'Overdue'})
-                    </div>
-                </div>
-            `;
-        }).join('');
-    },
-
-    // Display budget
-    displayBudget() {
-        const container = document.getElementById('budget-display');
-        if (!container) return;
-
-        // Show current month's budget by default
-        const currentMonth = new Date().toISOString().slice(0, 7);
-        const budget = this.data.budgets[currentMonth];
-
-        if (!budget) {
-            container.innerHTML = '<p class="text-center text-secondary">No budget created for this month</p>';
-            return;
-        }
-
-        const categories = Object.keys(budget).filter(key => key !== 'month');
-        const budgetHtml = `
-            <div class="budget-month">${this.formatMonthYear(currentMonth)}</div>
-            <div class="budget-overview">
-                ${categories.map(category => {
-                    const budgeted = budget[category] || 0;
-                    const spent = this.data.expenses
-                        .filter(expense => expense.date.startsWith(currentMonth) && expense.category === category)
-                        .reduce((sum, expense) => sum + expense.amount, 0);
-                    
-                    const remaining = budgeted - spent;
-                    const isOverBudget = spent > budgeted;
-                    
-                    return `
-                        <div class="budget-category">
-                            <div class="category-name">${this.formatCategoryName(category)}</div>
-                            <div class="category-amounts">
-                                <span class="budgeted">Budget: ${this.formatCurrency(budgeted)}</span>
-                                <span class="spent ${isOverBudget ? 'over-budget' : 'under-budget'}">
-                                    Spent: ${this.formatCurrency(spent)}
-                                </span>
-                                <span class="${remaining >= 0 ? 'text-success' : 'text-error'}">
-                                    ${remaining >= 0 ? 'Remaining' : 'Over'}: ${this.formatCurrency(Math.abs(remaining))}
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                }).join('')}
-            </div>
-        `;
-
-        container.innerHTML = budgetHtml;
-    },
-
-    // Update petty cash display
-    updatePettyCashDisplay() {
-        this.updatePettyCashSummary();
-        this.displayPettyCashList();
-    },
-
-    // Update petty cash summary
-    updatePettyCashSummary() {
-        const today = new Date().toISOString().split('T')[0];
-        const todayExpenses = this.data.pettyCash
-            .filter(item => item.date === today)
-            .reduce((sum, item) => sum + item.amount, 0);
-        
-        const dailyLimit = this.data.settings.dailyLimit;
-        const remaining = Math.max(0, dailyLimit - todayExpenses);
-        const progressPercent = Math.min((todayExpenses / dailyLimit) * 100, 100);
-
-        this.updateElement('today-spent', this.formatCurrency(todayExpenses));
-        this.updateElement('today-remaining', this.formatCurrency(remaining));
-        
-        const progressFill = document.getElementById('spending-fill');
-        if (progressFill) {
-            progressFill.style.width = `${progressPercent}%`;
-        }
-    },
-
-    // Display petty cash list
-    displayPettyCashList() {
-        const container = document.getElementById('petty-cash-list');
-        if (!container) return;
-
-        // Group by date
-        const groupedExpenses = {};
-        this.data.pettyCash.forEach(expense => {
-            if (!groupedExpenses[expense.date]) {
-                groupedExpenses[expense.date] = [];
-            }
-            groupedExpenses[expense.date].push(expense);
-        });
-
-        // Sort dates (newest first)
-        const sortedDates = Object.keys(groupedExpenses).sort((a, b) => new Date(b) - new Date(a));
-
-        if (sortedDates.length === 0) {
-            container.innerHTML = '<p class="text-center text-secondary">No petty cash expenses recorded</p>';
-            return;
-        }
-
-        container.innerHTML = sortedDates.map(date => {
-            const expenses = groupedExpenses[date].sort((a, b) => a.time.localeCompare(b.time));
-            const dailyTotal = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-
-            return `
-                <div class="petty-cash-day">
-                    <h4 class="date-header">${this.formatDate(date)} - Total: ${this.formatCurrency(dailyTotal)}</h4>
-                    ${expenses.map(expense => `
-                        <div class="list-item">
-                            <div class="item-info">
-                                <div class="item-title">${expense.description}</div>
-                                <div class="item-details">${expense.time}</div>
-                            </div>
-                            <div class="item-amount expense">${this.formatCurrency(expense.amount)}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }).join('');
-    },
-
-    // Utility function to update element content
-    updateElement(id, content) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = content;
-        }
-    },
-
-    // Format currency
-    formatCurrency(amount) {
-        return `${this.data.settings.currency}${Math.abs(amount).toFixed(2)}`;
-    },
-
-    // Format date
-    formatDate(dateString) {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    },
-
-    // Format month year
-    formatMonthYear(monthString) {
-        return new Date(monthString + '-01').toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long'
-        });
-    },
-
-    // Format category name
-    formatCategoryName(category) {
-        return category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+    // Load dashboard data
+    loadDashboard() {
+        console.log('Loading dashboard...');
+        // Dashboard loading logic will be handled by updateDashboard
+        this.updateDashboard();
+        console.log('Dashboard loaded');
     },
 
     // Generate unique ID
     generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }
-};
+    },
 
-// Modal utility functions
-const Modal = {
-    show(modalId) {
+    // Format currency
+    formatCurrency(amount) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(amount);
+    },
+
+    // Show notification
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <span>${message}</span>
+            <button onclick="this.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; float: right;">&times;</button>
+        `;
+        
+        // Add to page
+        document.body.appendChild(notification);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 3000);
+        
+        console.log(`Notification shown: ${message} (${type})`);
+    },
+
+    // Modal management
+    async showModal(modalId) {
+        console.log('Showing modal:', modalId);
+        console.log('ComponentLoader available:', typeof ComponentLoader !== 'undefined');
+        
+        // If ComponentLoader is available, try to load the modal first
+        if (typeof ComponentLoader !== 'undefined') {
+            console.log('Loading modal with ComponentLoader...');
+            await ComponentLoader.loadModal(modalId);
+        }
+        
         const modal = document.getElementById(modalId);
+        console.log('Modal element found:', modal !== null);
         if (modal) {
+            // Remove hidden class and set display
             modal.classList.remove('hidden');
-            // Focus on first input
-            const firstInput = modal.querySelector('input, select, textarea');
+            modal.style.display = 'flex';
+            console.log('Modal display set to flex and hidden class removed');
+            // Focus first input if available
+            const firstInput = modal.querySelector('input:not([type="hidden"]), textarea, select');
             if (firstInput) {
                 setTimeout(() => firstInput.focus(), 100);
+            }
+        } else {
+            console.error('Modal not found:', modalId);
+            console.log('Available modal elements:', Array.from(document.querySelectorAll('[id*="modal"], [id*="form"]')).map(el => el.id));
+        }
+    },
+
+    hideModal(modalId = null) {
+        if (modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.add('hidden');
+            }
+        } else {
+            // Hide all modals
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+                modal.classList.add('hidden');
+            });
+        }
+        console.log('Modal hidden:', modalId || 'all');
+    },
+
+    // Open guide (delegates to FinancialGuides module)
+    async openGuide(guideId) {
+        console.log('Opening guide:', guideId);
+        // Check if FinancialGuides module is available
+        if (typeof FinancialGuides !== 'undefined' && FinancialGuides.openGuide) {
+            await FinancialGuides.openGuide(guideId);
+        } else {
+            console.error('FinancialGuides module not available or openGuide method missing');
+            // Fallback: show guides section if guide module isn't loaded
+            this.showSection('guides');
+        }
+    },
+
+    // Open calculator (delegates to FinancialCalculators module)
+    openCalculator(calculatorType) {
+        console.log('Opening calculator:', calculatorType);
+        // Check if FinancialCalculators module is available
+        if (typeof FinancialCalculators !== 'undefined' && FinancialCalculators.openCalculator) {
+            FinancialCalculators.openCalculator(calculatorType);
+        } else {
+            console.error('FinancialCalculators module not available or openCalculator method missing');
+            // Fallback: show calculators section if calculator module isn't loaded
+            this.showSection('calculators');
+        }
+    },
+
+    // Clear calculator results (delegates to FinancialCalculators module)
+    clearCalculatorResults() {
+        console.log('Clearing calculator results');
+        if (typeof FinancialCalculators !== 'undefined' && FinancialCalculators.clearCalculatorResults) {
+            FinancialCalculators.clearCalculatorResults();
+        } else {
+            // Fallback: hide results section manually
+            const resultsSection = document.getElementById('calculator-results');
+            if (resultsSection) {
+                resultsSection.classList.remove('active');
+                resultsSection.style.display = 'none';
             }
         }
     },
 
-    hide(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('hidden');
-            // Reset form if exists
-            const form = modal.querySelector('form');
-            if (form) {
-                form.reset();
-                FinFree.setCurrentDate(); // Reset dates to current
-            }
+    // Dashboard update functions
+    updateDashboard() {
+        console.log('Updating dashboard...');
+        // Basic dashboard updates - detailed logic can be added here
+    },
+
+    // Display functions for different sections
+    displayExpenses() {
+        console.log('Displaying expenses...');
+        // Expense display logic
+    },
+
+    displayBudget() {
+        console.log('Displaying budget...');
+        // Budget display logic
+    },
+
+    displayIncome() {
+        console.log('Displaying income...');
+        // Income display logic
+    },
+
+    displayGoals() {
+        console.log('Displaying goals...');
+        // Goals display logic
+    },
+
+    updatePettyCashDisplay() {
+        console.log('Updating petty cash display...');
+        // Petty cash display logic
+    },
+
+    // Form handling methods
+    addExpense(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const expense = {
+            id: this.generateId(),
+            category: formData.get('category'),
+            description: formData.get('description'),
+            amount: parseFloat(formData.get('amount')),
+            date: formData.get('date'),
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
+        expenses.push(expense);
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        
+        console.log('Expense added:', expense);
+        
+        // Close modal and reset form
+        this.hideModal('expense-form');
+        form.reset();
+        
+        this.showNotification('Expense added successfully!', 'success');
+    },
+
+    addIncome(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const income = {
+            id: this.generateId(),
+            source: formData.get('source'),
+            description: formData.get('description'),
+            amount: parseFloat(formData.get('amount')),
+            date: formData.get('date'),
+            recurring: formData.get('recurring') === 'on',
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        const incomes = JSON.parse(localStorage.getItem('incomes') || '[]');
+        incomes.push(income);
+        localStorage.setItem('incomes', JSON.stringify(incomes));
+        
+        console.log('Income added:', income);
+        
+        // Close modal and reset form
+        this.hideModal('income-form');
+        form.reset();
+        
+        this.showNotification('Income added successfully!', 'success');
+    },
+
+    setBudget(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const budget = {
+            id: this.generateId(),
+            category: formData.get('category'),
+            amount: parseFloat(formData.get('amount')),
+            period: formData.get('period'),
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
+        
+        // Check if budget for this category already exists
+        const existingIndex = budgets.findIndex(b => b.category === budget.category);
+        if (existingIndex !== -1) {
+            budgets[existingIndex] = budget;
+        } else {
+            budgets.push(budget);
         }
+        
+        localStorage.setItem('budgets', JSON.stringify(budgets));
+        
+        console.log('Budget set:', budget);
+        
+        // Close modal and reset form
+        this.hideModal('budget-form');
+        form.reset();
+        
+        this.showNotification('Budget set successfully!', 'success');
+    },
+
+    // Add petty cash transaction
+    addPettyCash(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const transaction = {
+            id: this.generateId(),
+            type: formData.get('type'),
+            description: formData.get('description'),
+            amount: parseFloat(formData.get('amount')),
+            date: formData.get('date'),
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        const pettyCash = JSON.parse(localStorage.getItem('pettyCash') || '[]');
+        pettyCash.push(transaction);
+        localStorage.setItem('pettyCash', JSON.stringify(pettyCash));
+        
+        console.log('Petty cash transaction added:', transaction);
+        
+        // Close modal and reset form
+        this.hideModal('petty-cash-form');
+        form.reset();
+        
+        this.showNotification('Petty cash transaction added successfully!', 'success');
+    },
+
+    // Set financial goal
+    setGoal(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const goal = {
+            id: this.generateId(),
+            title: formData.get('title'),
+            targetAmount: parseFloat(formData.get('target-amount')),
+            currentAmount: parseFloat(formData.get('current-amount') || 0),
+            targetDate: formData.get('target-date'),
+            category: formData.get('category'),
+            description: formData.get('description'),
+            timestamp: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        const goals = JSON.parse(localStorage.getItem('goals') || '[]');
+        goals.push(goal);
+        localStorage.setItem('goals', JSON.stringify(goals));
+        
+        console.log('Goal set:', goal);
+        
+        // Close modal and reset form
+        this.hideModal('goal-form');
+        form.reset();
+        
+        this.showNotification('Financial goal set successfully!', 'success');
+    },
+
+    // Data management methods
+    getData(key) {
+        return JSON.parse(localStorage.getItem(key) || '[]');
+    },
+
+    saveData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+        console.log(`Data saved for ${key}:`, data.length, 'items');
+    },
+
+    clearAllData() {
+        if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+            localStorage.clear();
+            this.showNotification('All data cleared successfully!', 'success');
+            console.log('All data cleared');
+        }
+    },
+
+    // Export data
+    exportData() {
+        const data = {
+            expenses: this.getData('expenses'),
+            incomes: this.getData('incomes'),
+            budgets: this.getData('budgets'),
+            goals: this.getData('goals'),
+            pettyCash: this.getData('pettyCash'),
+            exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `finfree-data-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        this.showNotification('Data exported successfully!', 'success');
+        console.log('Data exported');
     }
 };
 
-// Initialize app when DOM is loaded
+// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing FinFree...');
     FinFree.init();
 });
 
-// Make FinFree and Modal available globally
+// Make FinFree globally available
 window.FinFree = FinFree;
-window.Modal = Modal;

@@ -308,7 +308,7 @@ const FirebaseIntegration = {
             this.createAuthModal();
         }
         
-        Modal.show('auth-modal');
+        FinFree.showModal('auth-modal');
     },
 
     // Create authentication modal
@@ -318,7 +318,7 @@ const FirebaseIntegration = {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Sign In to FinFree</h3>
-                        <button class="btn-close" onclick="Modal.hide('auth-modal')">
+                        <button class="btn-close" onclick="FinFree.hideModal('auth-modal')">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -400,7 +400,7 @@ const FirebaseIntegration = {
                 
                 try {
                     await this.signIn(email, password);
-                    Modal.hide('auth-modal');
+                    FinFree.hideModal('auth-modal');
                 } catch (error) {
                     this.showError('Sign in failed: ' + error.message);
                 }
@@ -423,7 +423,7 @@ const FirebaseIntegration = {
                 
                 try {
                     await this.signUp(email, password);
-                    Modal.hide('auth-modal');
+                    FinFree.hideModal('auth-modal');
                 } catch (error) {
                     this.showError('Sign up failed: ' + error.message);
                 }
@@ -443,7 +443,7 @@ const FirebaseIntegration = {
                 
                 try {
                     await this.configure(config);
-                    Modal.hide('auth-modal');
+                    FinFree.hideModal('auth-modal');
                     this.showSuccess('Firebase configured successfully!');
                 } catch (error) {
                     this.showError('Configuration failed: ' + error.message);

@@ -14,7 +14,7 @@ const ExpenseManager = {
         const addExpenseBtn = document.getElementById('add-expense-btn');
         if (addExpenseBtn) {
             addExpenseBtn.addEventListener('click', () => {
-                Modal.show('expense-form');
+                FinFree.showModal('expense-form');
             });
         }
 
@@ -24,13 +24,13 @@ const ExpenseManager = {
         
         if (closeExpenseForm) {
             closeExpenseForm.addEventListener('click', () => {
-                Modal.hide('expense-form');
+                FinFree.hideModal('expense-form');
             });
         }
 
         if (cancelExpense) {
             cancelExpense.addEventListener('click', () => {
-                Modal.hide('expense-form');
+                FinFree.hideModal('expense-form');
             });
         }
 
@@ -48,7 +48,7 @@ const ExpenseManager = {
         if (expenseModal) {
             expenseModal.addEventListener('click', (e) => {
                 if (e.target === expenseModal) {
-                    Modal.hide('expense-form');
+                    FinFree.hideModal('expense-form');
                 }
             });
         }
@@ -119,7 +119,7 @@ const ExpenseManager = {
         FinFree.updateDashboard();
 
         // Close modal and show success
-        Modal.hide('expense-form');
+        FinFree.hideModal('expense-form');
         this.showSuccess(`Expense of ${FinFree.formatCurrency(amount)} added successfully!`);
     },
 

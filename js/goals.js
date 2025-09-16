@@ -13,7 +13,7 @@ const GoalsManager = {
         const addGoalBtn = document.getElementById('add-goal-btn');
         if (addGoalBtn) {
             addGoalBtn.addEventListener('click', () => {
-                Modal.show('goal-form');
+                FinFree.showModal('goal-form');
             });
         }
 
@@ -23,13 +23,13 @@ const GoalsManager = {
         
         if (closeGoalForm) {
             closeGoalForm.addEventListener('click', () => {
-                Modal.hide('goal-form');
+                FinFree.hideModal('goal-form');
             });
         }
 
         if (cancelGoal) {
             cancelGoal.addEventListener('click', () => {
-                Modal.hide('goal-form');
+                FinFree.hideModal('goal-form');
             });
         }
 
@@ -47,7 +47,7 @@ const GoalsManager = {
         if (goalModal) {
             goalModal.addEventListener('click', (e) => {
                 if (e.target === goalModal) {
-                    Modal.hide('goal-form');
+                    FinFree.hideModal('goal-form');
                 }
             });
         }
@@ -129,7 +129,7 @@ const GoalsManager = {
         FinFree.updateDashboard();
 
         // Close modal and show success
-        Modal.hide('goal-form');
+        FinFree.hideModal('goal-form');
         this.showSuccess(`Goal "${name}" created successfully!`);
     },
 
@@ -536,8 +536,8 @@ const GoalsManager = {
 };
 
 // Add CSS for animations
-const style = document.createElement('style');
-style.textContent += `
+const goalsStyle = document.createElement('style');
+goalsStyle.textContent += `
 @keyframes bounceIn {
     0% { transform: scale(0.3); opacity: 0; }
     50% { transform: scale(1.05); }
@@ -545,7 +545,7 @@ style.textContent += `
     100% { transform: scale(1); opacity: 1; }
 }
 `;
-document.head.appendChild(style);
+document.head.appendChild(goalsStyle);
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {

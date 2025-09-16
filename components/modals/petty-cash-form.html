@@ -1,0 +1,76 @@
+<!-- Petty Cash Form Modal -->
+<div id="petty-cash-form" class="modal hidden">
+    <div class="modal-overlay" onclick="FinFree.hideModal('petty-cash-form')"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Petty Cash Transaction</h2>
+            <button type="button" class="modal-close" onclick="FinFree.hideModal('petty-cash-form')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="petty-cash-form-data" onsubmit="FinFree.addPettyCash(event)">
+                <div class="form-group">
+                    <label for="cash-type">Transaction Type</label>
+                    <select id="cash-type" name="type" required>
+                        <option value="">Select Type</option>
+                        <option value="expense">Expense</option>
+                        <option value="add">Add Cash</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cash-description">Description</label>
+                    <input type="text" id="cash-description" name="description" required 
+                           placeholder="What was this transaction for?">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cash-amount">Amount</label>
+                        <input type="number" id="cash-amount" name="amount" step="0.01" required 
+                               placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label for="cash-category">Category</label>
+                        <select id="cash-category" name="category">
+                            <option value="food">Food & Snacks</option>
+                            <option value="transport">Transport</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="personal">Personal Care</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cash-date">Date</label>
+                        <input type="date" id="cash-date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cash-time">Time</label>
+                        <input type="time" id="cash-time" name="time">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cash-notes">Notes (Optional)</label>
+                    <textarea id="cash-notes" name="notes" rows="3" 
+                              placeholder="Additional notes about this transaction"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="FinFree.hideModal('petty-cash-form')">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Save Transaction
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

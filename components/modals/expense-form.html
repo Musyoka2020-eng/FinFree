@@ -1,0 +1,77 @@
+<!-- Expense Form Modal -->
+<div id="expense-form" class="modal hidden">
+    <div class="modal-overlay" onclick="FinFree.hideModal('expense-form')"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add Expense</h2>
+            <button type="button" class="modal-close" onclick="FinFree.hideModal('expense-form')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="expense-form-data" onsubmit="FinFree.addExpense(event)">
+                <div class="form-group">
+                    <label for="expense-description">Description</label>
+                    <input type="text" id="expense-description" name="description" required 
+                           placeholder="What did you spend on?">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expense-amount">Amount</label>
+                        <input type="number" id="expense-amount" name="amount" step="0.01" required 
+                               placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-category">Category</label>
+                        <select id="expense-category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="bills">Bills & Utilities</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="education">Education</option>
+                            <option value="travel">Travel</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expense-date">Date</label>
+                        <input type="date" id="expense-date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-payment">Payment Method</label>
+                        <select id="expense-payment" name="paymentMethod">
+                            <option value="cash">Cash</option>
+                            <option value="card">Credit/Debit Card</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="mobile">Mobile Payment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="expense-notes">Notes (Optional)</label>
+                    <textarea id="expense-notes" name="notes" rows="3" 
+                              placeholder="Additional notes about this expense"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="FinFree.hideModal('expense-form')">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Add Expense
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

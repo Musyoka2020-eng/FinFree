@@ -14,7 +14,7 @@ const BudgetManager = {
         if (createBudgetBtn) {
             createBudgetBtn.addEventListener('click', () => {
                 this.initializeBudgetForm();
-                Modal.show('budget-form');
+                FinFree.showModal('budget-form');
             });
         }
 
@@ -24,13 +24,13 @@ const BudgetManager = {
         
         if (closeBudgetForm) {
             closeBudgetForm.addEventListener('click', () => {
-                Modal.hide('budget-form');
+                FinFree.hideModal('budget-form');
             });
         }
 
         if (cancelBudget) {
             cancelBudget.addEventListener('click', () => {
-                Modal.hide('budget-form');
+                FinFree.hideModal('budget-form');
             });
         }
 
@@ -48,7 +48,7 @@ const BudgetManager = {
         if (budgetModal) {
             budgetModal.addEventListener('click', (e) => {
                 if (e.target === budgetModal) {
-                    Modal.hide('budget-form');
+                    FinFree.hideModal('budget-form');
                 }
             });
         }
@@ -168,7 +168,7 @@ const BudgetManager = {
         FinFree.updateDashboard();
 
         // Close modal and show success
-        Modal.hide('budget-form');
+        FinFree.hideModal('budget-form');
         this.showSuccess(`Budget for ${FinFree.formatMonthYear(month)} created successfully!`);
     },
 

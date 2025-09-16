@@ -13,7 +13,7 @@ const IncomeManager = {
         const addIncomeBtn = document.getElementById('add-income-btn');
         if (addIncomeBtn) {
             addIncomeBtn.addEventListener('click', () => {
-                Modal.show('income-form');
+                FinFree.showModal('income-form');
             });
         }
 
@@ -23,13 +23,13 @@ const IncomeManager = {
         
         if (closeIncomeForm) {
             closeIncomeForm.addEventListener('click', () => {
-                Modal.hide('income-form');
+                FinFree.hideModal('income-form');
             });
         }
 
         if (cancelIncome) {
             cancelIncome.addEventListener('click', () => {
-                Modal.hide('income-form');
+                FinFree.hideModal('income-form');
             });
         }
 
@@ -47,7 +47,7 @@ const IncomeManager = {
         if (incomeModal) {
             incomeModal.addEventListener('click', (e) => {
                 if (e.target === incomeModal) {
-                    Modal.hide('income-form');
+                    FinFree.hideModal('income-form');
                 }
             });
         }
@@ -108,7 +108,7 @@ const IncomeManager = {
         FinFree.updateDashboard();
 
         // Close modal and show success
-        Modal.hide('income-form');
+        FinFree.hideModal('income-form');
         this.showSuccess(`Income of ${FinFree.formatCurrency(amount)} added successfully!`);
     },
 

@@ -15,7 +15,7 @@ const PettyCashManager = {
         const addPettyExpenseBtn = document.getElementById('add-petty-expense-btn');
         if (addPettyExpenseBtn) {
             addPettyExpenseBtn.addEventListener('click', () => {
-                Modal.show('petty-cash-form');
+                FinFree.showModal('petty-cash-form');
             });
         }
 
@@ -25,13 +25,13 @@ const PettyCashManager = {
         
         if (closePettyForm) {
             closePettyForm.addEventListener('click', () => {
-                Modal.hide('petty-cash-form');
+                FinFree.hideModal('petty-cash-form');
             });
         }
 
         if (cancelPetty) {
             cancelPetty.addEventListener('click', () => {
-                Modal.hide('petty-cash-form');
+                FinFree.hideModal('petty-cash-form');
             });
         }
 
@@ -49,7 +49,7 @@ const PettyCashManager = {
         if (pettyModal) {
             pettyModal.addEventListener('click', (e) => {
                 if (e.target === pettyModal) {
-                    Modal.hide('petty-cash-form');
+                    FinFree.hideModal('petty-cash-form');
                 }
             });
         }
@@ -139,7 +139,7 @@ const PettyCashManager = {
         FinFree.updateDashboard();
 
         // Close modal and show success
-        Modal.hide('petty-cash-form');
+        FinFree.hideModal('petty-cash-form');
         this.showSuccess(`Petty cash expense of ${FinFree.formatCurrency(amount)} added successfully!`);
 
         // Check for spending alerts

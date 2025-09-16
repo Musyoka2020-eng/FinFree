@@ -237,7 +237,7 @@ const FinancialGuides = {
         const closeGuideBtn = document.getElementById('close-guide');
         if (closeGuideBtn) {
             closeGuideBtn.addEventListener('click', () => {
-                Modal.hide('guide-modal');
+                FinFree.hideModal('guide-modal');
             });
         }
 
@@ -246,7 +246,7 @@ const FinancialGuides = {
         if (guideModal) {
             guideModal.addEventListener('click', (e) => {
                 if (e.target === guideModal) {
-                    Modal.hide('guide-modal');
+                    FinFree.hideModal('guide-modal');
                 }
             });
         }
@@ -283,13 +283,124 @@ const FinancialGuides = {
     },
 
     // Open a specific guide
-    openGuide(guideId) {
+    async openGuide(guideId) {
         const guide = this.guides[guideId];
-        if (!guide) return;
+        
+        // Show modal and wait for it to load
+        await FinFree.showModal('guide-modal');
+        
+        // Wait for the modal content to be available
+        await this.waitForModalReady();
+        
+        // Show loading state with realistic server delay
+        await this.showLoadingState();
+        
+        if (!guide) {
+            // Handle missing guide content
+            this.showGuideNotAvailable(guideId);
+            return;
+        }
 
         this.currentGuide = guideId;
         this.displayGuide(guide);
-        Modal.show('guide-modal');
+    },
+
+    // Show loading state with server-like delay
+    async showLoadingState() {
+        const titleElement = document.getElementById('guide-title');
+        const contentElement = document.getElementById('guide-content');
+        
+        if (titleElement) {
+            titleElement.innerHTML = `📚 Loading Guide...`;
+        }
+        
+        if (contentElement) {
+            contentElement.innerHTML = `
+                <div class="loading-placeholder">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <p>Fetching guide content...</p>
+                    <div class="loading-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Realistic server delay (1.5-2.5 seconds)
+        const delay = 1500 + Math.random() * 1000;
+        await new Promise(resolve => setTimeout(resolve, delay));
+    },
+
+    // Wait for modal elements to be ready
+    async waitForModalReady() {
+        return new Promise((resolve) => {
+            const checkReady = () => {
+                const titleElement = document.getElementById('guide-title');
+                const contentElement = document.getElementById('guide-content');
+                
+                if (titleElement && contentElement) {
+                    resolve();
+                } else {
+                    setTimeout(checkReady, 50);
+                }
+            };
+            checkReady();
+        });
+    },
+
+    // Show not available message for missing guides
+    showGuideNotAvailable(guideId) {
+        // Update title
+        const titleElement = document.getElementById('guide-title');
+        if (titleElement) {
+            titleElement.innerHTML = `📚 Guide Not Available`;
+        }
+
+        // Update content with not available message
+        const contentElement = document.getElementById('guide-content');
+        if (!contentElement) return;
+
+        const guideNames = {
+            'budgeting-101': 'Budgeting 101',
+            'credit-score': 'Understanding Credit Scores', 
+            'tax-optimization': 'Tax Optimization Strategies',
+            'real-estate': 'Real Estate Investing',
+            'finance-roadmap': 'Complete Personal Finance Roadmap',
+            'debt-management': 'Debt Management Strategies'
+        };
+
+        const guideName = guideNames[guideId] || 'This Guide';
+
+        const html = `
+            <div class="guide-not-available">
+                <div class="not-available-icon">
+                    <i class="fas fa-construction"></i>
+                </div>
+                <h3>Guide Coming Soon!</h3>
+                <p class="not-available-message">
+                    <strong>${guideName}</strong> is currently being developed and will be available soon.
+                </p>
+                <div class="available-guides">
+                    <h4>✅ Available Guides:</h4>
+                    <ul>
+                        <li><a href="#" onclick="FinancialGuides.openGuide('emergency-fund')">🛡️ Emergency Fund Guide</a></li>
+                        <li><a href="#" onclick="FinancialGuides.openGuide('investment-basics')">📈 Investment Basics</a></li>
+                        <li><a href="#" onclick="FinancialGuides.openGuide('debt-payoff')">💳 Debt Payoff Strategies</a></li>
+                        <li><a href="#" onclick="FinancialGuides.openGuide('retirement-planning')">🏖️ Retirement Planning</a></li>
+                    </ul>
+                </div>
+                <div class="guide-actions">
+                    <button class="btn btn-secondary" onclick="FinFree.hideModal('guide-modal')">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Guides
+                    </button>
+                </div>
+            </div>
+        `;
+
+        contentElement.innerHTML = html;
     },
 
     // Display guide content
@@ -370,7 +481,7 @@ const FinancialGuides = {
             </div>
 
             <div class="guide-actions">
-                <button class="btn btn-secondary" onclick="Modal.hide('guide-modal')">
+                <button class="btn btn-secondary" onclick="FinFree.hideModal('guide-modal')">
                     <i class="fas fa-arrow-left"></i>
                     Back to Guides
                 </button>
@@ -386,7 +497,7 @@ const FinancialGuides = {
 
     // Use a tool from within a guide
     useTool(action) {
-        Modal.hide('guide-modal');
+        FinFree.hideModal('guide-modal');
         
         switch (action) {
             case 'calculate':
@@ -411,7 +522,7 @@ const FinancialGuides = {
             this.showSuccess(`Great job completing the ${this.guides[guideId].title}!`);
         }
         
-        Modal.hide('guide-modal');
+        FinFree.hideModal('guide-modal');
         this.updateGuidesList(); // Refresh to show completion status
     },
 
